@@ -1,0 +1,48 @@
+.index-header {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 800;
+  color: white;
+  box-sizing: border-box;
+  padding: 0 62rpx;
+  font-size: 30rpx;
+}
+
+.index-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  /* background: linear-gradient(to left, #FC5C7D, #ee67a1); */
+  z-index: 699;
+  overflow: hidden;
+  /* background-image: url('https://6c69-littlechai-8gbpxj2baa4e412f-1257711591.tcb.qcloud.la/system/dot.png?sign=f6f105901602fb46727be2f82c1b33b4&t=1610067412'); */
+  background-repeat: repeat;
+}
+
+.index-nav image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.index-header-back {
+  position: absolute;
+  width: 54rpx;
+  height: 96%;
+  left: 6rpx;
+  top: 2%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.index-header-back image {
+  width: 100%;
+  height: 78%;
+}

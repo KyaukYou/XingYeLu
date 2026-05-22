@@ -1,0 +1,145 @@
+<!--pages/my/my.wxml-->
+<color-picker bindchangeColor="pickColor" initColor="{{rgb}}" show="{{pick}}" initBol="{{globalData.initBol}}"/>
+<l-toast
+  show="{{toastBol}}"
+  icon="loading"
+  title="{{toastTitle}}"
+  duration="{{toastDuration}}"
+/>
+
+<l-toast
+  show="{{toastBol1}}"
+  icon="loading"
+  title="{{toastTitle1}}"
+  duration="{{toastDuration}}"
+/>
+
+<l-toast
+  show="{{toastBolX}}"
+  title="{{toastTitleX}}"
+  duration="{{toastDurationX}}"
+/>
+
+<lc_header header_title='我的信息' header_color="{{globalData.color}}" blur="{{globalData.blur}}" back="{{back}}"></lc_header> 
+
+
+<view class="my" style="padding-top: {{globalData.customHeight.height+globalData.customHeight.top+6}}px;">
+    <view class="my_header"  style="background-color: {{globalData.color}}; background-image:{{globalData.blur === true ? 'url(https://6c69-littlechai-8gbpxj2baa4e412f-1257711591.tcb.qcloud.la/system/dot.png?sign=f6f105901602fb46727be2f82c1b33b4&t=1610067412)' : ''}};">
+      
+      <!-- 自定义背景图 -->
+      <view wx:if="{{globalData.background}}" style="top: -{{globalData.customHeight.height+globalData.customHeight.top+6}}px;" class="my_bg">
+        <image mode="aspectFill" src='{{background_url}}'></image>
+      </view>
+
+      <!-- 头像区域 -->
+      <view class="my_info">
+          <!-- <button open-type="getUserInfo" bindgetuserinfo='bindgetuserinfo'>更新信息</button> -->
+          <image class="my_edit_background" src='/images/img.svg' bindtap="chooseBackground"></image>
+
+          <view class="my_info_top">
+            <view class="my_info_left">
+              <button style="background-image: {{globalData.userInfo.avatarUrl ? 'url('+globalData.userInfo.avatarUrl+')' : 'url(https://6c69-littlechai-8gbpxj2baa4e412f-1257711591.tcb.qcloud.la/system/wx.png?sign=2a8dbe026ad644fdbce891f4b2109f87&t=1610211284)'}}" open-type="getUserInfo" bindtap="getNewUserInfo" bindgetuserinfo='bindgetuserinfo' class="login"></button>
+              
+
+            </view>
+            <view class="my_info_right">
+              <view class="my_info_username"><text>{{globalData.userInfo.nickName || '登录一下吧~'}}</text><image src='{{globalData.userInfo.gender === 2? "/images/woman.svg" : "/images/man.svg"}}'></image> </view>
+              <view class="my_info_location">
+                <view class="my_info_setline">
+                  <text>{{info.headline || ''}}</text>
+                  <textarea maxlength='{{maxlength}}' bindblur='saveHeadline' placeholder-class='plcClass' bindinput='changeHeadline' placeholder="写点什么吧~" type="text" value="{{info.headline || ''}}" />
+                </view>
+                <!-- <image src='/images/pen.svg'></image>  -->
+              </view>
+            </view>
+          </view>
+
+          <view class="my_info_bottom">
+
+            <view class="my_info_list_border my_info_list_border1"></view>
+            <view class="my_info_list_border my_info_list_border2"></view>
+            <view class="my_info_list_border my_info_list_border3"></view>
+
+            <view class="my_info_list" bindtap="toMyDiary">
+              <view class="my_info_list_text">
+                我的日记
+              </view>
+              <view class="my_info_list_num">
+                {{info.diary_num || 0}}
+              </view>
+            </view>
+            <view class="my_info_list" bindtap="toMyCollection">
+              <view class="my_info_list_text">
+                我的收藏
+              </view>
+              <view class="my_info_list_num">
+                {{info.collection_num || 0}}
+              </view>
+            </view>
+            <view class="my_info_list" bindtap="toMyWatch">
+              <view class="my_info_list_text">
+                我的关注
+              </view>
+              <view class="my_info_list_num">
+                {{info.following_num || 0}}
+              </view>
+            </view>
+            <view class="my_info_list" bindtap="toMyFans">
+              <view class="my_info_list_text">
+                我的粉丝
+              </view>
+              <view class="my_info_list_num">
+                {{info.fans || 0}}
+              </view>
+            </view>
+          </view>
+      </view>
+    </view>
+
+    
+
+    <scroll-view style="padding-top: {{globalData.customHeight.height+globalData.customHeight.top+6}}px;" class="my_container" scroll-y refresher-enabled bindrefresherrefresh='refresh' refresher-triggered='{{refreshBol}}'>
+      <view class="my_wrap">
+        <l-list title="个人资料" image="/images/info.svg" bindtap="toUserDetail" />
+        <!-- <l-list wx:if="{{globalData.roles[0] === 'admin'}}" title="电影日记" image="/images/film.svg" bindtap='toFilm'></l-list> -->
+        <l-list title="显示背景" image="/images/image.svg">
+          <view slot="right-section">
+            <switch checked='{{globalData.background}}' bindchange='changeBackground' style="position: relative; right: 6px; transform: scale(0.8)" color="{{globalData.color}}" />
+          </view>
+        </l-list>  
+        <l-list title="毛绒效果" image="/images/blur.svg">
+          <view slot="right-section">
+            <switch checked='{{globalData.blur}}' bindchange='changeBlur' style="position: relative; right: 6px; transform: scale(0.8)" color="{{globalData.color}}" />
+          </view>
+        </l-list>
+        <l-list title="隐私模式" image="/images/secret.svg">
+          <view slot="right-section">
+            <switch checked='{{info.secret}}' bindchange='changeSecret' style="position: relative; right: 6px; transform: scale(0.8)" color="{{globalData.color}}" />
+          </view>
+        </l-list>
+        <!-- <l-list title="消息通知" image="/images/notice.svg" /> -->
+        <l-list bindtap="toPick" title="全局配色" image="/images/color.svg" tag-content="点击修改"  tag-position="right" tag-color="{{globalData.color}}" />
+        <l-list bindtap="toVersion" title="更新日志" image="/images/ver.svg" tag-content="{{version_text}}" tagShape="circle" tag-position="right" tag-color="{{globalData.color}}"/>
+        <l-list bindtap="toQuestion" title="问题反馈" image="/images/bug.svg" tag-content="{{answer_text}}" tagShape="circle" tag-position="right" tag-color="{{globalData.color}}"/>
+
+        <l-list wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-日记开关" image="/images/create.svg">
+          <view slot="right-section">
+            <switch checked='{{controlDiary_bol}}' bindchange='controlDiary' style="position: relative; right: 6px; transform: scale(0.8)" color="{{globalData.color}}" />
+          </view>
+        </l-list>  
+
+        <l-list wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-评论开关" image="/images/chat.svg">
+          <view slot="right-section">
+            <switch checked='{{controlChat_bol}}' bindchange='controlChat' style="position: relative; right: 6px; transform: scale(0.8)" color="{{globalData.color}}" />
+          </view>
+        </l-list>  
+
+        <l-list bindtap="toUserList" wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-用户管理" image="/images/user.svg"/>
+        <l-list bindtap="toDiaryList" wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-日记列表" image="/images/diaryList.svg"/>
+        <l-list bindtap="toUserQuestion" wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-问题列表" image="/images/userQuestion.svg"/>
+        <l-list wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-日志管理" image="/images/editVersion.svg" bindtap="toEditVersion" />
+
+        
+      </view> 
+    </scroll-view>
+  </view>

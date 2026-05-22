@@ -1,0 +1,781 @@
+/**app.wxss**/
+.index {
+  width: 100%;
+  height: 100%;
+  /* box-sizing: border-box; */
+}
+
+.index_tab {
+  
+}
+
+.index_container {
+  width: 100%;
+  position: absolute;
+  top: 156rpx;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* padding-top: 156rpx; */
+  /* height: 100%; */
+  /* box-sizing: border-box; */
+  background-color: rgb(250, 250, 250);
+}
+
+
+/*公共diary组件*/
+.diary_scroll {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  /* padding-top: 24rpx; */
+  /* padding-bottom: 320rpx; */
+}  
+
+.diary_main {
+  width: 95%;
+  height: 314rpx;
+  background-color: white;
+  box-shadow: 0px 0px 6px #dddedf;
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 0 auto 36rpx auto;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.diary_left {
+  width: 58%;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.diary_left .diary_title_image {
+  position: absolute;
+  left: 1%;
+  top: 1%;
+  width: 98%;
+  height: 98%;
+  border-radius: 8rpx;
+}
+
+.diary_right {
+  width: 43%;
+  height: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  position: relative;
+}
+
+.diary_title {
+  width: 92%;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-weight: bold;
+  font-size: 32rpx;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.diary_time {
+  width: 92%;
+  height: 38rpx;
+  line-height: 36rpx;
+  font-size: 24rpx;
+  color: #999;
+  font-weight: 600;
+}
+
+.diary_location {
+  width: 92%;
+  height: 90rpx;
+  line-height: 30rpx;
+  font-size: 22rpx;
+  color: #999;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin-bottom: 16rpx;
+}
+
+.diary_more {
+  width: 92%;
+  height: 44rpx;
+  line-height: 36rpx;
+  font-size: 22rpx;
+  color: rgb(130, 130, 130);
+  font-weight: 600;
+}
+
+.diary_main_left .diary_user {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 76rpx;
+  color: white;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 26rpx;
+}
+
+.diary_main_right .diary_user {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 6rpx;
+  height: 76rpx;
+  color: white;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 26rpx;
+}
+
+.diary_user image {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  margin: 0 6rpx 0rpx 10rpx;
+}
+
+.diary_user view {
+  font-size: 24rpx;
+  margin: 0 6rpx;
+  position: relative;
+  top: 2rpx;
+}
+
+.diary_main_left .diary_lock {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 54rpx;
+  height: 54rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diary_main_right .diary_lock {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 54rpx;
+  height: 54rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diary_lock image {
+  width: 82%;
+  height: 82%;
+}
+
+.diary_bottom {
+  width: 100%;
+  height: 54rpx;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 8rpx;
+}
+
+.diary_like {
+  width: 120rpx;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.diary_bottom_view {
+  width: 40px;
+  height: 100%;
+  font-size: 26rpx;
+  text-align: center;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 6rpx;
+}
+
+.diary_collection {
+  width: 120rpx;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.diary_none {
+  font-size: 24rpx;
+  color: #ccc;
+  text-align: center;
+  width: 100%;
+  height: 34rpx;
+  line-height: 34rpx;
+  margin-bottom: 10rpx;
+}
+
+.diary_loading {
+  font-size: 24rpx;
+  color: #ccc;
+  text-align: center;
+  width: 100%;
+  height: 50rpx;
+  line-height: 50rpx;
+  margin-bottom: 10rpx;
+  position: relative;
+  top: -12rpx;
+}
+
+/* my */
+.my {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 700;
+}
+
+.my_bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 699;
+}
+
+.my_bg image {
+  width: 100%;
+  height: 100%;
+}
+
+.my_header {
+  width: 100%;
+  height: 400rpx;
+  position: relative;
+}
+
+.my_info {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 700;
+}
+
+.my_info_top {
+  width: 90%;
+  height: 130rpx;
+  display: flex;
+  flex-flow: row nowrap;
+  position: relative;
+  left: 5%;
+  top: 5%;
+  color: white;
+}
+
+.my_info_left {
+  width: 112rpx;
+  height: 112rpx;
+  position: relative;
+}
+
+.my_info_left button {
+  width: 112rpx!important;
+  height: 112rpx;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.my_info_right {
+  width: 480rpx;
+  height: 200rpx;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 0 16rpx;
+}
+
+.my_info_right input{
+  max-width: 430rpx;
+  width: auto;
+}
+
+.my_info_username {
+  width: 100%;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 36rpx;
+  position: relative;
+  top: 2rpx;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.my_info_username text {
+  max-width: 430rpx;
+  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.my_info_location {
+  width: 100%;
+  height: 130rpx;
+  line-height: 44rpx;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.9);
+  position: relative;
+  top: 1rpx;
+  left: -4rpx;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.plcClass {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.my_info_location image {
+  /* transform: rotateY(180deg); */
+}
+
+.my_info_bottom {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.1);
+  left: 0;
+  width: 100%;
+  right: 0;
+  bottom: 0;
+  height: 126rpx;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.my_info_list {
+  width: 25%;
+  height: 100%;
+  color: white;
+  font-size: 26rpx;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+}
+
+.my_info_list_text {
+  width: 100%;
+  height: 47%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 28rpx;
+}
+
+.my_info_list_num {
+  width: 100%;
+  height: 47%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 26rpx;
+}
+
+.my_info_list_border {
+  width: 2rpx;
+  position: absolute;
+  top: 18%;
+  bottom: 18%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.my_info_list_border1 {
+  left: 25%;
+}
+
+.my_info_list_border2 {
+  left: 50%;
+}
+
+.my_info_list_border3 {
+  left: 75%;
+}
+
+.my_container {
+  position: absolute;
+  top: 400rpx;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.my_wrap {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  padding: 0 0rpx;
+}
+
+.login {
+  background-image: url('https://6c69-littlechai-8gbpxj2baa4e412f-1257711591.tcb.qcloud.la/system/login.png?sign=daacd3a077703f0b53ecbc16b5484038&t=1610187200');
+  background-size: 100% 100%;
+  box-shadow: 0 0 8rpx 0 rgba(50,50,50,0.45);
+}
+
+
+
+/* 公共样式 */
+.opacity_button {
+  opacity: 0.72;
+  transition: all .2s ease;
+}
+
+.opacity_button_pos {
+  opacity: 0.88;
+}
+
+.to_create {
+  position: fixed;
+  right: 8%;
+  bottom: 7%;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  color: white;
+  z-index: 999;
+  font-size: 80rpx;
+  line-height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2rpx 20rpx rgba(120, 120, 120, 0.3);
+  /* transition: background-color .2s ease; */
+}
+
+.to_create image {
+  width: 65%;
+  height: 65%;
+}
+
+
+
+/* 评论 */
+.chat {
+  width: 100%;
+  height: auto;
+  padding-top: 50rpx;
+  margin-bottom: 24rpx;
+  /* box-shadow:0 2px 5px 1px rgba(0, 0, 0, 0.1); */
+}
+
+.chat-header {
+  width: 94%;
+  height: 60rpx;
+  margin: 0 auto;
+  font-size: 26rpx; 
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  color: #f47695;
+}
+
+.chat-header-text {
+  flex: 1;
+  height: 100%;
+  line-height: 54rpx;
+  box-sizing: border-box;
+  padding-left: 10rpx;
+}
+
+.chat-container {
+  width: 100%;
+  min-height: 60rpx;
+  height: auto;
+}
+
+.chat-nowrap {
+  width: 100%;
+  height: 60rpx;
+  /* box-sizing: border-box; */
+  /* padding: 0 20rpx; */
+  color: rgb(177, 177, 177);
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 60rpx;
+  /* border-bottom: 10rpx solid rgb(223, 223, 223); */
+  /* padding-bottom: 10rpx; */
+  margin: 14rpx 0;
+}
+
+.chat-write {
+  width: 100%;
+  height: auto;
+}
+
+.chat-write-header {
+  width: 94%;
+  height: 60rpx;
+  margin: 0 auto;
+  font-size: 26rpx; 
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  color: #f47695;
+  position: relative;
+}
+
+.chat-write-header-text {
+  flex: 1;
+  height: 100%;
+  line-height: 58rpx;
+  box-sizing: border-box;
+  padding-left: 10rpx;
+}
+
+.chat-write-textarea {
+  width: 96%;
+  height: 280rpx;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: 2rpx solid rgb(223, 223, 223);
+  font-size: 26rpx;
+  border-radius: 10rpx;
+  box-shadow: 0px 1px 3px #e7e7e7;
+}
+
+.chat-write-textarea textarea {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 10rpx;
+  padding-bottom: 70rpx;
+  position: relative;
+  letter-spacing: 4rpx;
+  word-spacing: 4rpx;
+}
+
+.chat-write-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 70rpx;
+  border-top: 2rpx solid rgb(223, 223, 223);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-write-num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 26%;
+  height: 100%;
+  line-height: 70rpx;
+  color: rgb(211, 211, 211);
+  box-sizing: border-box;
+  padding-left: 10rpx;
+  text-align: center;
+}
+
+.chat-write-btn {
+  width: 41%;
+  right: 1.5%;
+  top: 3%;
+  bottom: 3%;
+  height: 94%;
+  box-sizing: border-box;
+  padding-right: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10rpx;
+}
+
+.chat-write-btn view {
+  width: 100%;
+  height: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+}
+
+.chat-write-btn button {
+  width: 30%;
+  height: 60rpx;
+  margin: 0;
+  margin-top: 6rpx;
+  float: right;
+}
+
+
+/*评论主体*/
+.chat-wrap-lists {
+  width: 96%;
+  height: auto;
+  margin: 10rpx auto;
+  margin-bottom: 18rpx;
+}
+
+.chat-wrap-list {
+  width: 100%;
+  height: auto;
+  margin: 10rpx 0;
+  position: relative;
+}
+
+.chat-wrap-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background-color: transparent;
+  overflow: hidden;
+  position: absolute;
+  left: 2rpx;
+  top: 4rpx;
+}
+
+.chat-wrap-avatar image {
+  width: 100%;
+  height: 100%;
+}
+
+.chat-wrap-top {
+  width: 100%;
+  height: 50rpx;
+  box-sizing: border-box;
+  /* border: 1rpx solid gray; */
+  padding-left: 76rpx;
+  font-size: 24rpx;
+  line-height: 50rpx;
+  font-weight: bold;
+  color: rgb(155, 155, 155);
+}
+
+.chat-wrap-top1 {
+  padding-left:68rpx;
+}
+
+.chat-wrap-top1 text {
+  font-size: 24rpx;
+}
+
+.chat-wrap-top text {
+  font-size: 26rpx;
+  color: #f47695;
+  margin-right: 4rpx;
+}
+
+.chat-wrap-center {
+  width: 100%;
+  /* min-height: 100rpx; */
+  height: auto;
+  box-sizing: border-box;
+  /* border: 1rpx solid gray; */
+  padding-left: 76rpx;
+  font-size: 26rpx;
+  line-height: 40rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.chat-wrap-center1 {
+  padding-left: 68rpx;
+  font-size: 24rpx;
+}
+
+.chat-wrap-child {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  /* border: 1rpx solid gray; */
+  padding-left: 76rpx;
+  position: relative;
+  margin-top: 14rpx;
+}
+
+.chat-wrap-avatar1 {
+  left: 78rpx;
+  width: 56rpx;
+  height: 56rpx;
+}
+
+.chat-wrap-top .chat-wrap-time {
+  float: right;
+  font-size: 20rpx;
+  font-weight: 600;
+  color: rgb(155, 155, 155);
+  transition: all .2s ease;
+}
+
+.chat-wrap-huifu {
+  font-size: 24rpx;
+  color: #64ace7;
+  margin-left: 10rpx;
+}
+
+.chat-write-header-btn {
+  position: absolute;
+  right: 44%;
+  top: 3%;
+  bottom: 3%;
+  width: 20%;
+  /* background-color: rgb(233, 233, 233); */
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
+
+.chat-wrap-center-ctoc {
+  color: orange;
+}
