@@ -34,7 +34,7 @@
       <!-- 头像区域 -->
       <view class="my_info">
           <!-- <button open-type="getUserInfo" bindgetuserinfo='bindgetuserinfo'>更新信息</button> -->
-          <image class="my_edit_background" src='/images/img.svg' bindtap="chooseBackground"></image>
+          <image class="my_edit_background" src='/images/redesign/action-edit.png' bindtap="chooseBackground"></image>
 
           <view class="my_info_top">
             <view class="my_info_left">
@@ -100,44 +100,44 @@
 
     <scroll-view style="padding-top: {{globalData.customHeight.height+globalData.customHeight.top+6}}px;" class="my_container" scroll-y refresher-enabled bindrefresherrefresh='refresh' refresher-triggered='{{refreshBol}}'>
       <view class="my_wrap">
-        <l-list title="个人资料" image="/images/info.svg" bindtap="toUserDetail" />
+        <l-list title="个人资料" image="/images/redesign/profile.png" bindtap="toUserDetail" />
         <!-- <l-list wx:if="{{globalData.roles[0] === 'admin'}}" title="电影日记" image="/images/film.svg" bindtap='toFilm'></l-list> -->
-        <l-list title="显示背景" image="/images/image.svg">
+        <l-list title="显示背景" image="/images/redesign/image.png">
           <view slot="right-section">
             <switch checked='{{globalData.background}}' bindchange='changeBackground' style="position: relative; right: 6px; transform: scale(0.8)" color="{{globalData.color}}" />
           </view>
         </l-list>  
-        <l-list title="毛绒效果" image="/images/blur.svg">
+        <l-list title="毛绒效果" image="/images/redesign/blur.png">
           <view slot="right-section">
             <switch checked='{{globalData.blur}}' bindchange='changeBlur' style="position: relative; right: 6px; transform: scale(0.8)" color="{{globalData.color}}" />
           </view>
         </l-list>
-        <l-list title="隐私模式" image="/images/secret.svg">
+        <l-list title="隐私模式" image="/images/redesign/secret.png">
           <view slot="right-section">
             <switch checked='{{info.secret}}' bindchange='changeSecret' style="position: relative; right: 6px; transform: scale(0.8)" color="{{globalData.color}}" />
           </view>
         </l-list>
         <!-- <l-list title="消息通知" image="/images/notice.svg" /> -->
-        <l-list bindtap="toPick" title="全局配色" image="/images/color.svg" tag-content="点击修改"  tag-position="right" tag-color="{{globalData.color}}" />
-        <l-list bindtap="toVersion" title="更新日志" image="/images/ver.svg" tag-content="{{version_text}}" tagShape="circle" tag-position="right" tag-color="{{globalData.color}}"/>
-        <l-list bindtap="toQuestion" title="问题反馈" image="/images/bug.svg" tag-content="{{answer_text}}" tagShape="circle" tag-position="right" tag-color="{{globalData.color}}"/>
+        <l-list bindtap="toPick" title="全局配色" image="/images/redesign/palette.png" tag-content="点击修改"  tag-position="right" tag-color="{{globalData.color}}" />
+        <l-list bindtap="toVersion" title="更新日志" image="/images/redesign/version.png" tag-content="{{version_text}}" tagShape="circle" tag-position="right" tag-color="{{globalData.color}}"/>
+        <l-list bindtap="toQuestion" title="问题反馈" image="/images/redesign/feedback.png" tag-content="{{answer_text}}" tagShape="circle" tag-position="right" tag-color="{{globalData.color}}"/>
 
-        <l-list wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-日记开关" image="/images/create.svg">
+        <l-list wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-日记开关" image="/images/redesign/record.png">
           <view slot="right-section">
             <switch checked='{{controlDiary_bol}}' bindchange='controlDiary' style="position: relative; right: 6px; transform: scale(0.8)" color="{{globalData.color}}" />
           </view>
         </l-list>  
 
-        <l-list wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-评论开关" image="/images/chat.svg">
+        <l-list wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-评论开关" image="/images/redesign/comment.png">
           <view slot="right-section">
             <switch checked='{{controlChat_bol}}' bindchange='controlChat' style="position: relative; right: 6px; transform: scale(0.8)" color="{{globalData.color}}" />
           </view>
         </l-list>  
 
-        <l-list bindtap="toUserList" wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-用户管理" image="/images/user.svg"/>
-        <l-list bindtap="toDiaryList" wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-日记列表" image="/images/diaryList.svg"/>
-        <l-list bindtap="toUserQuestion" wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-问题列表" image="/images/userQuestion.svg"/>
-        <l-list wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-日志管理" image="/images/editVersion.svg" bindtap="toEditVersion" />
+        <l-list bindtap="toUserList" wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-用户管理" image="/images/redesign/users.png"/>
+        <l-list bindtap="toDiaryList" wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-日记列表" image="/images/redesign/diary.png"/>
+        <l-list bindtap="toUserQuestion" wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-问题列表" image="/images/redesign/question.png"/>
+        <l-list wx:if="{{globalData.roles[0] === 'admin'}}" title="高级权限-日志管理" image="/images/redesign/admin.png" bindtap="toEditVersion" />
 
         
       </view> 

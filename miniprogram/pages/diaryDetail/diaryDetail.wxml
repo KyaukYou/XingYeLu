@@ -38,14 +38,14 @@
 
         <view class="detail_bottomx">
           <view class="diary_like" bindtap="setLike">
-            <van-icon wx:if="{{info.inLike  === false}}" name="good-job-o" color="#999" size="38rpx" />
-            <van-icon wx:if="{{info.inLike  === true}}" name="good-job" color="{{globalData.color}}" size="38rpx" />
+            <image wx:if="{{info.inLike  === false}}" class="action_icon action_like_icon" src="/images/redesign/action-like.png"></image>
+            <image wx:if="{{info.inLike  === true}}" class="action_icon action_like_icon" src="/images/redesign/action-like-active.png"></image>
             <view class="diary_bottom_view" style="color: {{info.inLike  === false ? '#999' : globalData.color}}">
               {{info.like}}</view>
           </view>
           <view class="diary_collection" bindtap="setCollection">
-            <van-icon wx:if="{{info.inCollection  === false}}" name="star-o" color="#999" size="38rpx" />
-            <van-icon wx:if="{{info.inCollection  === true}}" name="star" color="{{globalData.color}}" size="38rpx" />
+            <image wx:if="{{info.inCollection  === false}}" class="action_icon action_star_icon" src="/images/redesign/action-star.png"></image>
+            <image wx:if="{{info.inCollection  === true}}" class="action_icon action_star_icon" src="/images/redesign/action-star-active.png"></image>
             <view class="diary_bottom_view" style="color: {{info.inCollection  === false ? '#999' : globalData.color}}">
               {{info.collection}}</view>
           </view>
@@ -102,7 +102,7 @@
       <!-- 评论 -->
       <view class='chat' wx:if="{{commentBol}}">
         <view class='chat-header'>
-          <van-icon class="detail_comment_icon" name="chat" color="{{globalData.color}}" size="38rpx" />
+          <image class="detail_comment_icon action_icon chat_action_icon" src="/images/redesign/action-comment.png"></image>
           <view class='chat-header-text' style="color: {{globalData.color}}">评论列表 共{{commentNum}}条评论</view>
         </view>
         <view class='chat-container'>
@@ -145,7 +145,7 @@
         </view>
         <view class='chat-write'>
           <view class='chat-write-header'>
-            <van-icon name="smile-comment" color="{{globalData.color}}" size="38rpx" />
+            <image class="detail_comment_icon action_icon chat_action_icon" src="/images/redesign/action-edit.png"></image>
             <view class='chat-write-header-text' style="color: {{globalData.color}}">发表评论</view>
           </view>
           <view class='chat-write-textarea'>

@@ -44,14 +44,14 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "images/tabbar/index1.png",
-        "selectedIconPath": "images/tabbar/index2.png",
+        "iconPath": "images/redesign/tab-home.png",
+        "selectedIconPath": "images/redesign/tab-home-active.png",
         "text": "主页"
       },
       {
         "pagePath": "pages/my/my",
-        "iconPath": "images/tabbar/my1.png",
-        "selectedIconPath": "images/tabbar/my2.png",
+        "iconPath": "images/redesign/tab-user.png",
+        "selectedIconPath": "images/redesign/tab-user-active.png",
         "text": "我的"
       }
     ]

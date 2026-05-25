@@ -103,7 +103,7 @@
           <view class='myInfo-detail'>
             <view class='myInfo-detail-list'>
               <view class='myInfo-left'>
-                <image src='/images/birth.svg'></image>
+                <image src='/images/redesign/profile-birth.png'></image>
                 <text>生日</text>
               </view>
               <view  wx:if="{{info.secret === false}}" class='myInfo-input'>
@@ -115,7 +115,7 @@
       
             <view class='myInfo-detail-list'>
               <view class='myInfo-left'>
-                <image src='/images/age.svg'></image>
+                <image src='/images/redesign/profile-age.png'></image>
                 <text>年龄</text>
               </view>
               <view class='myInfo-input'>
@@ -131,7 +131,7 @@
       
             <view class='myInfo-detail-list'>
               <view class='myInfo-left'>
-                <image src='/images/email.svg'></image>
+                <image src='/images/redesign/profile-email.png'></image>
                 <text>邮箱</text>
               </view>
               <view  wx:if="{{info.secret === false}}" class='myInfo-input'>
@@ -142,7 +142,7 @@
       
             <view class='myInfo-detail-list'>
               <view class='myInfo-left'>
-                <image src='/images/area.svg'></image>
+                <image src='/images/redesign/profile-area.png'></image>
                 <text>区域</text>
               </view>
               <view  wx:if="{{info.secret === false}}" class='myInfo-input'>
@@ -168,3 +168,4 @@
       </view>
     </scroll-view>
   </view>
+

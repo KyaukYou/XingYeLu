@@ -229,6 +229,34 @@
   justify-content: center;
 }
 
+.action_icon {
+  width: 38rpx;
+  height: 38rpx;
+  flex: 0 0 38rpx;
+  display: block;
+  position: relative;
+  top: -1rpx;
+}
+
+.action_like_icon {
+  transform: rotate(-4deg);
+}
+
+.action_star_icon {
+  transform: rotate(5deg);
+}
+
+.chat_action_icon {
+  width: 42rpx;
+  height: 42rpx;
+  flex-basis: 42rpx;
+}
+
+.detail_comment_icon {
+  position: relative;
+  top: -2rpx;
+}
+
 .diary_none {
   font-size: 24rpx;
   color: #ccc;

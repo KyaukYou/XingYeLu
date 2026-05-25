@@ -145,7 +145,7 @@
     <!-- 评论 -->
     <view class='chat' wx:if="{{commentBol}}">
         <view class='chat-header'>
-          <van-icon class="detail_comment_icon" name="chat" color="{{globalData.color}}" size="38rpx" />
+          <image class="detail_comment_icon action_icon chat_action_icon" src="/images/redesign/action-comment.png"></image>
           <view class='chat-header-text' style="color: {{globalData.color}}">评论列表 共{{commentNum}}条评论</view>
         </view>
         <view class='chat-container'>
@@ -188,7 +188,7 @@
         </view>
         <view class='chat-write'>
           <view class='chat-write-header'>
-            <van-icon name="smile-comment" color="{{globalData.color}}" size="38rpx" />
+            <image class="detail_comment_icon action_icon chat_action_icon" src="/images/redesign/action-edit.png"></image>
             <view class='chat-write-header-text' style="color: {{globalData.color}}">发表评论</view>
           </view>
           <view class='chat-write-textarea'>
@@ -208,3 +208,4 @@
 
   </scroll-view>
 </view>
+

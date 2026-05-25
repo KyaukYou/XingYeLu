@@ -67,13 +67,13 @@
             <view class="diary_more">{{diary_item.dayNum}}天 | 浏览{{diary_item.see}}次</view>
             <view class="diary_bottom">
               <view class="diary_like" data-index="{{diary_index}}" data-openid="{{diary_item.openid}}" data-id="{{diary_index._id}}" bindtap="setLike">
-                <van-icon wx:if="{{diary_item.inLike  === false}}" name="good-job-o" color="#999"  size="38rpx"/>
-                <van-icon wx:if="{{diary_item.inLike  === true}}" name="good-job" color="{{globalData.color}}"  size="38rpx"/>
+                <image wx:if="{{diary_item.inLike  === false}}" class="action_icon action_like_icon" src="/images/redesign/action-like.png"></image>
+                <image wx:if="{{diary_item.inLike  === true}}" class="action_icon action_like_icon" src="/images/redesign/action-like-active.png"></image>
                 <view class="diary_bottom_view" style="color: {{diary_item.inLike  === false ? '#999' : globalData.color}}">{{diary_item.like}}</view>
               </view>
               <view class="diary_collection" data-index="{{diary_index}}" data-openid="{{diary_item.openid}}" data-id="{{diary_index._id}}" bindtap="setCollection">
-                <van-icon wx:if="{{diary_item.inCollection  === false}}" name="star-o" color="#999" size="38rpx"/>
-                <van-icon wx:if="{{diary_item.inCollection  === true}}" name="star" color="{{globalData.color}}" size="38rpx"/>
+                <image wx:if="{{diary_item.inCollection  === false}}" class="action_icon action_star_icon" src="/images/redesign/action-star.png"></image>
+                <image wx:if="{{diary_item.inCollection  === true}}" class="action_icon action_star_icon" src="/images/redesign/action-star-active.png"></image>
                 <view class="diary_bottom_view" style="color: {{diary_item.inCollection  === false ? '#999' : globalData.color}}">{{diary_item.collection}}</view>
               </view>
             </view>
@@ -89,13 +89,13 @@
             <view class="diary_more">{{diary_item.dayNum}}天 | 浏览{{diary_item.see}}次</view>
             <view class="diary_bottom">
               <view class="diary_like" data-index="{{diary_index}}" data-openid="{{diary_item.openid}}" data-id="{{diary_index._id}}" bindtap="setLike">
-                <van-icon wx:if="{{diary_item.inLike  === false}}" name="good-job-o" color="#999"  size="38rpx"/>
-                <van-icon wx:if="{{diary_item.inLike  === true}}" name="good-job" color="{{globalData.color}}"  size="38rpx"/>
+                <image wx:if="{{diary_item.inLike  === false}}" class="action_icon action_like_icon" src="/images/redesign/action-like.png"></image>
+                <image wx:if="{{diary_item.inLike  === true}}" class="action_icon action_like_icon" src="/images/redesign/action-like-active.png"></image>
                 <view class="diary_bottom_view" style="color: {{diary_item.inLike  === false ? '#999' : globalData.color}}">{{diary_item.like}}</view>
               </view>
               <view class="diary_collection" data-index="{{diary_index}}" data-openid="{{diary_item.openid}}" data-id="{{diary_index._id}}" bindtap="setCollection">
-                <van-icon wx:if="{{diary_item.inCollection  === false}}" name="star-o" color="#999" size="38rpx"/>
-                <van-icon wx:if="{{diary_item.inCollection  === true}}" name="star" color="{{globalData.color}}" size="38rpx"/>
+                <image wx:if="{{diary_item.inCollection  === false}}" class="action_icon action_star_icon" src="/images/redesign/action-star.png"></image>
+                <image wx:if="{{diary_item.inCollection  === true}}" class="action_icon action_star_icon" src="/images/redesign/action-star-active.png"></image>
                 <view class="diary_bottom_view" style="color: {{diary_item.inCollection  === false ? '#999' : globalData.color}}">{{diary_item.collection}}</view>
               </view>
             </view>
@@ -123,3 +123,4 @@
     </view>
   </scroll-view>
 </view>
+
