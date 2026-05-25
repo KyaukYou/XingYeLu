@@ -37,9 +37,20 @@ Page({
   },
   async getVersion() {
     let version = await wx.cloud.callFunction({
-      name: 'getVersion'
+      name: 'adminApi',
+      data: {
+        action: 'getVersion'
+      }
     })
     console.log(version)
+    if (!version.result || !version.result.data || !version.result.data[0]) {
+      console.error('getVersion没有查到versions记录', version)
+      this.setData({
+        toastBol: false,
+        refreshBol: false
+      })
+      return
+    }
     let arr = JSON.parse(JSON.stringify(version.result.data[0].arr));
     let num1 = parseInt(arr.length / this.data.pageSize);
     let num2 = arr.length % this.data.pageSize;

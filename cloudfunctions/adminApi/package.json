@@ -1,0 +1,14 @@
+{
+  "name": "adminApi",
+  "version": "1.0.0",
+  "description": "Merged cloud function module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "wx-server-sdk": "~2.3.3"
+  }
+}

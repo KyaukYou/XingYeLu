@@ -520,8 +520,19 @@ Page({
   //获取日志版本
   async getVersion_one() {
     let version = await wx.cloud.callFunction({
-      name: 'getVersionOne'
+      name: 'adminApi',
+      data: {
+        action: 'getVersionOne'
+      }
     });
+    if (!version.result || !version.result.data || !version.result.data[0]) {
+      console.error('getVersionOne没有查到versions记录', version)
+      this.setData({
+        version_text: "",
+        version_num: ""
+      })
+      return
+    }
     let res = version.result.data[0].version
     if(wx.getStorageSync('version')) {
       if(wx.getStorageSync('version') === res) {

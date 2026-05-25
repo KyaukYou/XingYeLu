@@ -13,6 +13,7 @@ App({
         env: 'cloud1-d3g9ga0ffb1a3625a',
         traceUser: true,
       })
+      this.patchCloudFunction()
     }
 
 
@@ -50,6 +51,86 @@ App({
     else {
       this.initData();
     }
+  },
+
+  patchCloudFunction() {
+    if (!wx.cloud || wx.cloud.__mergedApiPatched) {
+      return
+    }
+
+    const originalCallFunction = wx.cloud.callFunction.bind(wx.cloud)
+    const functionRoute = {
+      login: 'authApi',
+
+      createUser: 'userApi',
+      ifUser: 'userApi',
+      getUserInfo: 'userApi',
+      getUserDetail: 'userApi',
+      getUserArr: 'userApi',
+      getAnswerBol: 'userApi',
+      updateCustom: 'userApi',
+      updateUserDetail: 'userApi',
+      updateUserSecret: 'userApi',
+      setUserAnswer: 'userApi',
+      setUserDiaryNum: 'userApi',
+      setUserCollectionNum: 'userApi',
+      setUserLikeNum: 'userApi',
+      watchUser: 'userApi',
+      unwatchFans: 'userApi',
+      ifWatch: 'userApi',
+      setUserFans: 'userApi',
+      almightyApi: 'userApi',
+
+      createDiary: 'diaryApi',
+      getDiary: 'diaryApi',
+      updateDiary: 'diaryApi',
+      getDiaryDetail: 'diaryApi',
+      getDiary_noValue: 'diaryApi',
+      getDiary_value: 'diaryApi',
+      getMyDiary: 'diaryApi',
+      getMyDiary_noValue: 'diaryApi',
+      getMyDiary_value: 'diaryApi',
+      getMyCollection: 'diaryApi',
+      addDiarySee: 'diaryApi',
+      lockDiary: 'diaryApi',
+      setDiaryLike: 'diaryApi',
+      setDiaryCollection: 'diaryApi',
+      uploadComment: 'diaryApi',
+      getComment: 'diaryApi',
+
+      uploadQuestion: 'questionApi',
+      getUserQuestion: 'questionApi',
+      getMyQuestion: 'questionApi',
+      getMyQuestionDetail: 'questionApi',
+      answerQuestion: 'questionApi',
+      cancelQuestion: 'questionApi',
+      deleteQuestion: 'questionApi',
+
+      getAdmin: 'adminApi',
+      getAdminX: 'adminApi',
+      getCommentBol: 'adminApi',
+      controlChat: 'adminApi',
+      controlDiary: 'adminApi',
+      getVersion: 'adminApi',
+      getVersionOne: 'adminApi',
+      updateVersion: 'adminApi'
+    }
+
+    wx.cloud.callFunction = (options = {}) => {
+      const legacyName = options.name
+      const mergedName = functionRoute[legacyName]
+      if (!legacyName || !mergedName) {
+        return originalCallFunction(options)
+      }
+
+      return originalCallFunction(Object.assign({}, options, {
+        name: mergedName,
+        data: Object.assign({}, options.data || {}, {
+          action: legacyName
+        })
+      }))
+    }
+    wx.cloud.__mergedApiPatched = true
   },
 
   async getUserInfoAgain() {
