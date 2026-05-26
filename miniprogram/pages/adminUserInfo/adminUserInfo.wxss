@@ -235,3 +235,74 @@
 .diary_loading {
   top: 12rpx;
 }
+
+.my {
+  background-color: #f6f8fb;
+  z-index: 600;
+}
+
+.myInfo-wrap {
+  width: 92%;
+  margin: 22rpx auto 32rpx;
+  box-shadow: none;
+}
+
+.myInfo-detail {
+  background-color: transparent;
+}
+
+.myInfo-detail-list {
+  height: 96rpx;
+  margin-bottom: 14rpx;
+  padding: 0 24rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 10rpx 28rpx rgba(30, 45, 70, 0.08);
+  color: #202733;
+}
+
+.myInfo-detail-list .myInfo-left {
+  width: 190rpx;
+  color: #202733;
+}
+
+.myInfo-detail-list .myInfo-left text {
+  justify-content: flex-start;
+  color: #202733;
+  font-weight: 600;
+}
+
+.myInfo-detail-list .myInfo-input {
+  left: 220rpx;
+  padding-right: 24rpx;
+  color: #5f6b7a;
+}
+
+.myInfo-detail-list .myInfo-input .picker,
+.myInfo-detail-list .myInfo-input picker,
+.myInfo-detail-list .myInfo-input input {
+  color: #5f6b7a;
+}
+
+.myInfo-center {
+  height: 420rpx;
+  margin-top: 18rpx;
+  padding: 28rpx;
+  border-top: 0;
+  border-radius: 18rpx;
+  box-shadow: 0 10rpx 28rpx rgba(30, 45, 70, 0.08);
+}
+
+.myInfo-center textarea {
+  font-size: 29rpx;
+  line-height: 44rpx;
+  color: #202733;
+}
+
+.info_watch {
+  border-radius: 999rpx;
+  height: 50rpx;
+  padding: 0 18rpx;
+  right: 2%;
+  top: 4rpx;
+  box-shadow: 0 8rpx 20rpx rgba(30, 45, 70, 0.12);
+}

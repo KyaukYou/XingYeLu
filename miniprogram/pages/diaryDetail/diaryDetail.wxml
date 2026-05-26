@@ -59,17 +59,10 @@
           <view class='contact-border' style="background-color: {{globalData.color}}">
           </view>
 
-          <view class='detail-time' style="color: {{globalData.color}}">
-            <view class="detail-times-icon">
-              <view style="border-color: {{globalData.color}}" class="detail-times-icon-bg"></view>
-              <view style="background-color: {{globalData.color}}" class="detail-times-icon-sm"></view>
-            </view>
-            <view class='detail-times'>{{item.date}} 第{{paixu == true ?allIndex+1:diaryArr.length-allIndex}}天
-            </view>
-
-            <!-- <view class='detail-contact'></view> -->
-          </view>
           <view class='detail-info'>
+            <view class='detail-time'>
+              <view class='detail-times'>{{item.date}} 第{{paixu == true ?allIndex+1:diaryArr.length-allIndex}}天</view>
+            </view>
             <view class='detail-list-img'>
               <view data-index='{{allIndex}}'
                 class='{{item.imagesArr.length > 1 ? "detail-img-load detail-img-more" : "detail-img-load detail-img-one" }}'

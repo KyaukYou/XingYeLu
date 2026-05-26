@@ -119,19 +119,18 @@
 
 .detail-time {
   width: 100%;
-  height: 56rpx;
-  line-height: 60rpx;
-  color: rgb(244,118,149);
-  /* color: rgb(71, 203, 137); */
+  height: 64rpx;
+  line-height: 64rpx;
+  color: #222;
   font-size: 28rpx; 
   font-weight: bold;
   position: relative;
   box-sizing: border-box;
-  padding-left: 6rpx;
-  left: -26rpx;
+  padding: 0 14rpx;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  background-color: #fff;
 }
 
 .detail-times {
@@ -139,10 +138,9 @@
   height: 100%;
   width: auto;
   box-sizing: border-box;
-  padding-bottom: 4rpx;
   position: relative;
-  bottom: 4rpx;
-  left: 6rpx;
+  bottom: 0;
+  left: 0;
 }
 
 .detail-contact {
@@ -157,7 +155,8 @@
 .detail-info {
   width: 96%;
   margin: 0 auto;
-  margin-left: 3.5%;
+  /* margin-left: 3.5%; */
+  margin-left: 0;
   height: auto;
   /* background-color: white; */
   /* border-radius: 8rpx; */
@@ -295,6 +294,7 @@
   bottom:-62rpx;
   left:-8rpx;
   border-radius: 6rpx;
+  display: none;
 }
 
 .detail-container .detail-list:last-child .contact-border {
@@ -312,6 +312,7 @@
   flex-flow: column wrap;
   align-items: center;
   justify-content: flex-start;
+  display: none;
 }
 
 .detail-container .contact-border-footer view {
@@ -361,6 +362,7 @@
   position: relative;
   bottom: 2rpx;
   left: -4rpx;
+  display: none;
 }
 
 .detail-times-icon-bg {
@@ -389,8 +391,8 @@
   position: absolute;
   right: -7%;
   top: -10rpx;
-  width: 31%;
-  height: 70%;
+  width: 34%;
+  height: 76%;
   display: flex;
   flex-flow: wrap nowrap;
   align-items: center;
@@ -418,4 +420,23 @@
 .detail_comment_icon {
   position: relative;
   top: -2rpx;
+}
+
+.detail_bottomx .action_icon {
+  width: 36rpx;
+  height: 36rpx;
+  flex-basis: 36rpx;
+  top: 0;
+}
+
+.detail_bottomx .diary_bottom_view {
+  width: 34rpx;
+  padding-left: 4rpx;
+}
+
+.chat-header .chat_action_icon,
+.chat-write-header .chat_action_icon {
+  width: 36rpx;
+  height: 36rpx;
+  flex-basis: 36rpx;
 }

@@ -230,20 +230,20 @@
 }
 
 .action_icon {
-  width: 38rpx;
-  height: 38rpx;
-  flex: 0 0 38rpx;
+  width: 42rpx;
+  height: 42rpx;
+  flex: 0 0 42rpx;
   display: block;
   position: relative;
   top: -1rpx;
 }
 
 .action_like_icon {
-  transform: rotate(-4deg);
+  transform: none;
 }
 
 .action_star_icon {
-  transform: rotate(5deg);
+  transform: none;
 }
 
 .chat_action_icon {

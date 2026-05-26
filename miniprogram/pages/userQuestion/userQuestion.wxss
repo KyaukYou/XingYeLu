@@ -161,3 +161,103 @@
   font-size: 24rpx;
   color: #333;
 }
+
+.my {
+  background-color: #f6f8fb;
+  z-index: 600;
+}
+
+.my_wrap {
+  box-sizing: border-box;
+  padding: 18rpx 24rpx 0;
+}
+
+.myList-child {
+  width: 100%;
+  min-height: 188rpx;
+  height: auto;
+  box-sizing: border-box;
+  padding: 24rpx 24rpx 22rpx 132rpx;
+  background-color: #fff;
+  margin: 0 auto 22rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 10rpx 28rpx rgba(30, 45, 70, 0.08);
+  overflow: hidden;
+}
+
+.myList-left {
+  top: 24rpx;
+  left: 22rpx;
+  width: 92rpx;
+  height: 42rpx;
+}
+
+.myList-left .myList-left-yes,
+.myList-left .myList-left-no {
+  min-width: 76rpx;
+  padding: 8rpx 12rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  line-height: 1;
+}
+
+.myList-left .myList-left-yes {
+  background-color: #e9f8ef;
+  color: #18a058;
+}
+
+.myList-left .myList-left-no {
+  background-color: #fff1f0;
+  color: #f04438;
+}
+
+.myList-top-top {
+  top: 0;
+  height: 44rpx;
+  padding: 0 34rpx 0 0;
+  color: #5f6b7a;
+  font-size: 25rpx;
+}
+
+.myList-top-top image {
+  width: 42rpx;
+  height: 42rpx;
+  margin-right: 10rpx;
+}
+
+.myList-top {
+  top: 0;
+  height: auto;
+  padding: 10rpx 34rpx 0 0;
+  font-size: 29rpx;
+  color: #202733;
+  line-height: 42rpx;
+}
+
+.myList-top text {
+  height: auto;
+  line-height: 42rpx;
+  top: 0;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.myList-bottom {
+  left: 0;
+  height: auto;
+  margin-top: 16rpx;
+  font-size: 23rpx;
+  line-height: 34rpx;
+  color: #8a94a6;
+}
+
+.question_delete {
+  right: 12rpx;
+  top: 12rpx;
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 50%;
+  background-color: #f4f7fb;
+}

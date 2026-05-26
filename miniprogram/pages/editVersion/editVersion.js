@@ -7,7 +7,7 @@ Page({
    */
   data: {
     back: true,
-    globalData: {},
+    globalData: app.globalData,
     verBol: false,
     verData: [],
     refreshBol: false,
