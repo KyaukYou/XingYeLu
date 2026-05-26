@@ -1,6 +1,6 @@
 # 星夜录（原小柴随心记2.0）— 项目完整开发文档
 
-> 生成时间：2026-05-25 | AppID: `wx7e8eb46444d8dd39` | 云环境: `cloud1-d3g9ga0ffb1a3625a`
+> 生成时间：2026-05-26 | AppID: `wx7e8eb46444d8dd39` | 云环境: `cloud1-d3g9ga0ffb1a3625a`
 
 ---
 
@@ -10,7 +10,7 @@
 - [二、技术架构](#二技术架构)
 - [三、目录结构](#三目录结构)
 - [四、数据库设计](#四数据库设计)
-- [五、云函数清单](#五云函数清单)
+- [五、云函数架构](#五云函数架构)
 - [六、页面清单与跳转关系](#六页面清单与跳转关系)
 - [七、页面详细分析](#七页面详细分析)
 - [八、组件清单](#八组件清单)
@@ -46,6 +46,7 @@
 | 图标组件 | Vant Weapp (部分) | icon + info 徽标组件 |
 | 自定义组件 | 3 个 | lc_header / color-picker / userWatch |
 | 状态管理 | globalData + Storage | app.globalData + wx.setStorageSync |
+| 云函数架构 | 聚合路由模式 | 5 个聚合云函数，通过 action 字段分发 |
 
 ---
 
@@ -53,61 +54,32 @@
 
 ```
 XingYeLu/
-├── cloudfunctions/                 # 云函数（47个）
-│   ├── addDiarySee/               # 日记浏览量+1
-│   ├── almightyApi/               # 管理员万能接口
-│   ├── answerQuestion/            # 回答问题
-│   ├── cancelQuestion/            # 取消问题
-│   ├── controlChat/               # 评论开关控制
-│   ├── controlDiary/              # 日记创建开关控制
-│   ├── createDiary/               # 创建日记
-│   ├── createUser/                # 注册用户
-│   ├── deleteQuestion/            # 删除问题
-│   ├── getAdmin/                  # 获取管理员配置
-│   ├── getAdminX/                 # 获取管理员配置(含日记开关)
-│   ├── getAnswerBol/              # 获取问题回复状态
-│   ├── getComment/                # 获取评论列表
-│   ├── getCommentBol/             # 获取评论权限
-│   ├── getDiary_noValue/          # 无搜索获取公开日记
-│   ├── getDiary_value/            # 搜索获取公开日记
-│   ├── getDiaryDetail/            # 获取日记详情
-│   ├── getMyCollection/           # 获取我的收藏
-│   ├── getMyDiary/                # 获取指定日记(简单版)
-│   ├── getMyDiary_noValue/        # 无搜索获取我的日记
-│   ├── getMyDiary_value/          # 搜索获取我的日记
-│   ├── getMyQuestion/             # 获取我的问题
-│   ├── getMyQuestionDetail/       # 获取我的问题详情
-│   ├── getUserArr/                # 获取用户点赞/收藏列表
-│   ├── getUserDetail/             # 获取用户详情
-│   ├── getUserInfo/               # 获取用户信息(遵守隐私)
-│   ├── getUserQuestion/           # 获取用户的问题
-│   ├── getVersion/                # 获取版本列表
-│   ├── getVersionOne/             # 获取最新版本号
-│   ├── ifUser/                    # 判断用户是否存在
-│   ├── ifWatch/                   # 判断是否关注
-│   ├── lockDiary/                 # 锁定/解锁日记
-│   ├── login/                     # 登录获取openid
-│   ├── setDiaryCollection/        # 日记收藏数增减
-│   ├── setDiaryLike/              # 日记点赞数增减
-│   ├── setUserAnswer/             # 设置用户回复状态
-│   ├── setUserCollectionNum/      # 用户收藏数增减
-│   ├── setUserDiaryNum/           # 用户日记数增减
-│   ├── setUserFans/               # 用户粉丝数增减
-│   ├── setUserLikeNum/            # 用户点赞数增减
-│   ├── unwatchFans/               # 取消关注
-│   ├── updateCustom/              # 更新用户自定义设置
-│   ├── updateDiary/               # 更新日记
-│   ├── updateUserDetail/          # 更新用户详情
-│   ├── updateUserSecret/          # 更新隐私设置
-│   ├── updateVersion/             # 更新版本
-│   ├── uploadComment/             # 上传评论
-│   ├── uploadQuestion/            # 上传问题
-│   └── watchUser/                 # 关注用户
+├── cloudfunctions/                 # 云函数（5个聚合）
+│   ├── adminApi/                   # 管理员+版本+评论开关模块
+│   │   ├── index.js                # 路由入口(handlers分发)
+│   │   ├── package.json
+│   │   └── config.json
+│   ├── authApi/                    # 认证模块
+│   │   ├── index.js                # login
+│   │   ├── package.json
+│   │   └── config.json
+│   ├── diaryApi/                   # 日记+评论+互动模块
+│   │   ├── index.js                # 日记CRUD+搜索+点赞收藏+浏览量+评论
+│   │   ├── package.json
+│   │   └── config.json
+│   ├── questionApi/                # 问题反馈模块
+│   │   ├── index.js                # 问题CRUD+回答+取消/删除
+│   │   ├── package.json
+│   │   └── config.json
+│   └── userApi/                    # 用户+社交+万能接口模块
+│       ├── index.js                # 用户CRUD+关注/取关+统计+almightyApi
+│       ├── package.json
+│       └── config.json
 │
 ├── miniprogram/                    # 小程序前端
-│   ├── app.js                     # 入口文件（云开发初始化、用户管理）
+│   ├── app.js                     # 入口文件（含patchCloudFunction兼容层）
 │   ├── app.json                   # 全局配置（页面路由、tabBar、权限）
-│   ├── app.wxss                   # 全局样式（日记卡片、评论、个人中心）
+│   ├── app.wxss                   # 全局样式
 │   ├── sitemap.json               # 搜索索引配置
 │   │
 │   ├── pages/                     # 页面（28个）
@@ -154,16 +126,32 @@ XingYeLu/
 │   ├── lin-ui/                    # Lin UI 组件库
 │   │   └── dist/                  # 50+ 组件
 │   │
-│   ├── images/                    # 图片资源（32 SVG + 6 PNG）
-│   │   └── tabbar/                # TabBar 图标
+│   ├── images/                    # 图片资源
+│   │   ├── redesign/              # 重设计PNG图标（31个）
+│   │   │   ├── tab-home.png / tab-home-active.png     # TabBar-首页
+│   │   │   ├── tab-user.png / tab-user-active.png     # TabBar-我的
+│   │   │   ├── tab-record.png / tab-record-active.png # TabBar-记录(预留)
+│   │   │   ├── action-like.png / action-like-active.png    # 点赞
+│   │   │   ├── action-star.png / action-star-active.png    # 收藏
+│   │   │   ├── action-comment.png / action-comment-soft.png # 评论
+│   │   │   ├── action-edit.png / action-send.png            # 编辑/发送
+│   │   │   ├── admin.png / users.png / diary.png            # 管理功能
+│   │   │   ├── feedback.png / question.png / version.png     # 功能图标
+│   │   │   ├── profile*.png / blur.png / secret.png / image.png # 个人设置
+│   │   │   ├── palette.png / record.png / comment.png         # 其他
+│   │   ├── tabbar/                 # 旧TabBar图标(已弃用)
+│   │   ├── *.svg                   # SVG图标(32个)
+│   │   └── *.png                   # 其他PNG(6个)
 │   │
 │   └── style/                     # 额外样式
 │       └── guide.wxss             # 引导页样式
 │
+├── image.jpg                       # 项目预览图
 ├── project.config.json            # 项目配置
 ├── project.private.config.json    # 私有配置
 ├── package-lock.json              # 依赖锁定
-└── README.md                      # 原部署说明
+├── README.md                      # 原部署说明
+└── PROJECT_DOC.md                 # 本文档
 ```
 
 ---
@@ -203,6 +191,7 @@ XingYeLu/
   blur: Boolean,                  // 是否启用毛绒效果
   background_bol: Boolean,        // 是否显示背景图
   like: Array,                    // 点赞的日记ID列表
+  like_num: Number,               // 点赞总数
   dislike: Array,                 // 取消点赞的日记ID列表
   collection: Array,              // 收藏的日记ID列表
   collection_num: Number,         // 收藏数
@@ -246,6 +235,7 @@ XingYeLu/
   see: Number,                    // 浏览量
   like: Number,                   // 点赞数
   collection: Number,             // 收藏数
+  dayNum: Number,                 // 天数
   createdTime: String,            // 创建时间
   updatedTime: String,            // 更新时间
   diaryArr: [                     // 每日内容数组
@@ -261,25 +251,36 @@ XingYeLu/
 
 ### 4.4 comments 集合字段
 
+> **注意**: comments 采用"每日记一文档"结构（非旧版每条评论独立文档）
+
 ```
 {
   _id: String,
-  diaryId: String,                // 所属日记ID
-  openid: String,                 // 评论者openid
-  nickName: String,               // 评论者昵称
-  avatarUrl: String,              // 评论者头像
-  content: String,                // 评论内容
-  time: String,                   // 评论时间
-  like: Number,                   // 点赞数
-  child: [                        // 子评论(楼中楼)
+  diary_id: String,               // 所属日记ID
+  createdTime: String,            // 创建时间
+  updatedTime: String,            // 最后更新时间
+  arr: [                          // 评论数组
     {
-      openid: String,
-      nickName: String,
-      avatarUrl: String,
-      content: String,
-      time: String,
-      toNickName: String,         // 回复谁的
-      toOpenid: String,
+      content: String,            // 评论内容
+      openid: String,             // 评论者openid
+      userInfo: {                 // 评论者信息(查询时关联填充)
+        nickName: String,
+        avatarUrl: String,
+      },
+      updatedTime: String,        // 评论时间
+      arr: [                      // 子评论(楼中楼)
+        {
+          content: String,        // 回复内容
+          openid: String,         // 回复者openid
+          userInfo: {},           // 回复者信息
+          comment_openid: String, // 被回复者openid
+          comment: {              // 被回复者信息(查询时关联填充)
+            nickName: String,
+            avatarUrl: String,
+          },
+          updatedTime: String,    // 回复时间
+        }
+      ]
     }
   ]
 }
@@ -291,13 +292,16 @@ XingYeLu/
 {
   _id: String,
   openid: String,                 // 提问者openid
-  title: String,                  // 问题标题
-  content: String,                // 问题内容
-  time: String,                   // 提问时间
+  question: String,               // 问题标题/内容
   answer: Boolean,                // 是否已回答
-  answerContent: String,          // 回答内容
-  answerTime: String,             // 回答时间
-  cancel: Boolean,                // 是否已取消
+  answerInfo: {                   // 回答信息对象
+    openid: String,               // 回答者openid
+    answer: String,               // 回答内容
+    updatedTime: String,          // 回答时间
+    userInfo: {},                 // 回答者信息(查询时关联填充)
+  },
+  updatedTime: String,            // 提问/最后更新时间
+  ifDelete: Boolean,              // 是否已删除(软删除，false=正常)
 }
 ```
 
@@ -305,7 +309,7 @@ XingYeLu/
 
 ```
 {
-  _id: String,                    // 需手动创建并复制到云函数
+  _id: String,                    // 固定ID: '5290ec146a0faef3001585d25d2205fe'
   controlChat: Boolean,           // 评论开关
   controlDiary: Boolean,          // 日记创建开关
   openid: Array,                  // 管理员openid列表
@@ -316,7 +320,7 @@ XingYeLu/
 
 ```
 {
-  _id: String,                    // 需手动创建并复制到云函数
+  _id: String,                    // 可通过VERSION_ID或openid查找
   arr: Array,                     // 版本记录数组
   updatedTime: String,            // 更新时间
   openid: String,                 // 最后更新者openid
@@ -326,107 +330,141 @@ XingYeLu/
 
 ---
 
-## 五、云函数清单
+## 五、云函数架构
 
-### 5.1 用户模块
+### 5.1 架构概述
 
-| 云函数 | 方法 | 输入参数 | 访问集合 | 功能 |
-|--------|------|----------|----------|------|
-| `login` | - | 无 | - | 获取用户openid |
-| `ifUser` | - | openid, time | users | 判断用户是否存在+更新登录时间 |
-| `createUser` | - | user(完整用户对象) | users | 注册新用户 |
-| `getUserInfo` | - | openid | users | 获取用户信息(遵守隐私设置) |
-| `getUserDetail` | - | openid | users | 获取用户详情(包含userDetail) |
-| `getUserArr` | - | openid | users | 获取用户like/dislike/collection数组 |
-| `updateCustom` | - | openid, update(对象) | users | 更新用户自定义字段(color/hue/blur/background_bol/userInfo等) |
-| `updateUserDetail` | - | openid, detail(对象) | users | 更新用户详情(birth/where/email/info等) |
-| `updateUserSecret` | - | openid, secret(布尔) | users | 更新隐私模式开关 |
+项目采用 **聚合路由模式** 将原来 47 个独立云函数合并为 5 个聚合云函数：
 
-### 5.2 社交模块（关注/粉丝）
+```
+前端调用: wx.cloud.callFunction({ name: '原函数名', data: {...} })
+                    ↓
+        patchCloudFunction() 兼容层(app.js)
+                    ↓ name映射 + 注入 action
+实际调用: wx.cloud.callFunction({ name: '聚合函数名', data: { action: '原函数名', ... } })
+                    ↓
+        聚合函数 index.js → handlers[action](event, context) 分发
+```
 
-| 云函数 | 输入参数 | 访问集合 | 功能 |
+**关键特性**:
+- **零侵入**: 通过 `patchCloudFunction()` 拦截 `wx.cloud.callFunction`，前端业务代码无需任何修改
+- **向后兼容**: 所有页面仍然使用原始函数名调用，内部自动转发
+- **统一管理**: 同类操作归集到同一云函数，便于维护和部署
+
+### 5.2 路由映射表
+
+| 原始函数名(action) | 聚合云函数 | 所属模块 |
+|---|---|---|
+| `login` | authApi | 认证 |
+| `createUser`, `ifUser`, `getUserInfo`, `getUserDetail`, `getUserArr`, `getAnswerBol`, `updateCustom`, `updateUserDetail`, `updateUserSecret`, `setUserAnswer`, `setUserDiaryNum`, `setUserCollectionNum`, `setUserLikeNum`, `watchUser`, `unwatchFans`, `ifWatch`, `setUserFans`, `almightyApi` | userApi | 用户+社交+万能 |
+| `createDiary`, `updateDiary`, `getDiaryDetail`, `getDiary_noValue`, `getDiary_value`, `getMyDiary`, `getMyDiary_noValue`, `getMyDiary_value`, `getMyCollection`, `addDiarySee`, `lockDiary`, `setDiaryLike`, `setDiaryCollection`, `uploadComment`, `getComment` | diaryApi | 日记+评论+互动 |
+| `uploadQuestion`, `getUserQuestion`, `getMyQuestion`, `getMyQuestionDetail`, `answerQuestion`, `cancelQuestion`, `deleteQuestion` | questionApi | 问题反馈 |
+| `getAdmin`, `getAdminX`, `getCommentBol`, `controlChat`, `controlDiary`, `getVersion`, `getVersionOne`, `updateVersion` | adminApi | 管理+版本 |
+
+### 5.3 adminApi — 管理/版本/评论开关模块
+
+| action | 输入参数 | 访问集合 | 功能 |
 |--------|----------|----------|------|
-| `ifWatch` | myOpenid, otherOpenid | users | 判断是否关注了某用户 |
-| `watchUser` | myOpenid, otherOpenid | users | 关注用户(following+1, 对方fans+1) |
-| `unwatchFans` | myOpenid, otherOpenid | users | 取消关注(following-1, 对方fans-1) |
+| `getAdmin` | openid | admin | 获取管理员配置(按openid查) |
+| `getAdminX` | 无 | admin | 获取管理员配置(固定ID，仅返回controlDiary) |
+| `getCommentBol` | 无 | admin | 获取评论开关(固定ID，仅返回controlChat) |
+| `controlChat` | openid, bol | admin | 控制评论开关 |
+| `controlDiary` | openid, bol | admin | 控制日记创建开关 |
+| `getVersion` | 无 | versions | 获取版本列表(arr+version+updatedTime) |
+| `getVersionOne` | 无 | versions | 获取最新版本号 |
+| `updateVersion` | openid, arr, version, updatedTime | versions | 更新版本信息(需ADMIN_OPENID验证) |
 
-### 5.3 日记模块
+**特殊逻辑**: `queryVersion()` 函数支持三级回退查找 VERSION_ID → openid → limit(1)；`getVersionDocId()` 同理。
 
-| 云函数 | 输入参数 | 访问集合 | 功能 |
+### 5.4 authApi — 认证模块
+
+| action | 输入参数 | 功能 |
+|--------|----------|------|
+| `login` | 无 | 返回 OPENID/APPID/UNIONID/ENV |
+
+### 5.5 diaryApi — 日记/评论/互动模块
+
+| action | 输入参数 | 访问集合 | 功能 |
 |--------|----------|----------|------|
 | `createDiary` | diary(完整对象) | diarys | 创建日记 |
 | `updateDiary` | id, openid, diary | diarys | 更新日记(验证作者openid) |
-| `lockDiary` | id, lock(布尔) | diarys | 锁定/解锁日记 |
-| `addDiarySee` | id | diarys | 浏览量+1(原子操作) |
+| `getDiaryDetail` | id | diarys, users | 获取日记详情(含作者userInfo) |
 | `getDiary_noValue` | page, per_page, sort | diarys, users | 获取公开日记(无搜索) |
 | `getDiary_value` | page, per_page, sort, value | diarys, users | 搜索公开日记(标题+位置模糊匹配) |
-| `getDiaryDetail` | id | diarys, users | 获取日记详情(含作者信息) |
+| `getDiary` | (兼容别名→getDiary_noValue) | diarys, users | 同getDiary_noValue |
 | `getMyDiary` | id | diarys | 获取指定日记(简单版) |
 | `getMyDiary_noValue` | page, per_page, sort, openid | diarys, users | 获取我的日记(含未公开/已删除) |
 | `getMyDiary_value` | page, per_page, sort, value, openid | diarys, users | 搜索我的日记 |
 | `getMyCollection` | openid, sort, value, page, per_page | users, diarys | 获取我的收藏列表 |
+| `addDiarySee` | id | diarys | 浏览量+1(原子操作 _.inc) |
+| `lockDiary` | id, lock | diarys | 锁定/解锁日记 |
+| `setDiaryLike` | id, num(+1/-1) | diarys | 日记点赞数增减 |
+| `setDiaryCollection` | id, num(+1/-1) | diarys | 日记收藏数增减 |
+| `uploadComment` | diary_id, content, openid, bol, comment_index, comment_openid, updatedTime, createdTime | comments | 上传评论/回复(bol=false一级/bol=true二级) |
+| `getComment` | diary_id | comments, users | 获取日记评论(含楼中楼+用户信息关联) |
 
 **排序方式 sort**: `updatedTimeA`(更新时间升序) / `updatedTimeB`(更新时间降序) / `like`(点赞数) / `see`(浏览量)
 
-### 5.4 点赞/收藏模块
+**comments 结构特点**: 每篇日记对应一条 comments 文档，评论存储在 `arr` 数组中，子评论嵌套在父评论的 `arr` 中。上传时通过 `bol` 参数区分一级/二级评论，通过 `comment_index` 定位父评论。
 
-| 云函数 | 输入参数 | 访问集合 | 功能 |
+### 5.6 questionApi — 问题反馈模块
+
+| action | 输入参数 | 访问集合 | 功能 |
 |--------|----------|----------|------|
-| `setDiaryLike` | id, num(+1/-1) | diarys | 日记点赞数增减 |
-| `setDiaryCollection` | id, num(+1/-1) | diarys | 日记收藏数增减 |
-| `setUserLikeNum` | openid, num(+1/-1) | users | 用户点赞总数增减 |
-| `setUserCollectionNum` | openid, num(+1/-1) | users | 用户收藏总数增减 |
-| `setUserDiaryNum` | openid, num(+1/-1) | users | 用户日记总数增减 |
-| `setUserFans` | openid, num(+1/-1) | users | 用户粉丝数增减 |
-| `setUserAnswer` | openid, answer(布尔) | users | 设置用户回复状态 |
+| `uploadQuestion` | question, openid, updatedTime | questions | 提交问题 |
+| `getUserQuestion` | page, per_page | questions, users | 获取所有问题列表(管理员) |
+| `getMyQuestion` | openid | questions | 获取我的问题 |
+| `getMyQuestionDetail` | id | questions, users | 获取我的问题详情(含回答者信息) |
+| `answerQuestion` | id, openid(userOpenid), openid, answer, updatedTime | questions, users | 回答问题(同时更新用户answer标记) |
+| `cancelQuestion` | id | questions | 取消问题(恢复ifDelete=false) |
+| `deleteQuestion` | id | questions | 删除问题(ifDelete=true) |
 
-### 5.5 评论模块
+### 5.7 userApi — 用户/社交/万能接口模块
 
-| 云函数 | 输入参数 | 访问集合 | 功能 |
+#### 5.7.1 用户基础
+
+| action | 输入参数 | 访问集合 | 功能 |
 |--------|----------|----------|------|
-| `getComment` | diaryId, page, per_page | comments | 获取日记评论(分页) |
-| `getCommentBol` | diaryId | comments | 获取评论权限(评论开关+日记锁定) |
-| `uploadComment` | comment(完整对象) | comments | 上传评论/回复 |
-| `controlChat` | control(布尔) | admin | 控制评论开关 |
-
-### 5.6 问题模块
-
-| 云函数 | 输入参数 | 访问集合 | 功能 |
-|--------|----------|----------|------|
-| `uploadQuestion` | question(对象) | questions, users | 提交问题 |
-| `answerQuestion` | id, answerContent, answerTime | questions, users | 回答问题 |
-| `cancelQuestion` | id | questions | 取消问题 |
-| `deleteQuestion` | id | questions | 删除问题 |
-| `getMyQuestion` | openid, page, per_page | questions | 获取我的问题 |
-| `getMyQuestionDetail` | id | questions | 获取我的问题详情 |
-| `getUserQuestion` | page, per_page | questions | 获取所有问题(管理员) |
+| `createUser` | user(完整对象) | users | 注册新用户 |
+| `ifUser` | openid, time | users | 判断用户是否存在+更新登录时间 |
+| `getUserInfo` | openid | users | 获取用户信息(遵守隐私设置，secret=true时隐藏详情) |
+| `getUserDetail` | openid | users | 获取用户详情(仅userDetail字段) |
+| `getUserArr` | openid | users | 获取用户like/collection数组 |
 | `getAnswerBol` | openid | users | 获取问题回复状态 |
-| `getAdmin` | 无 | admin | 获取管理员配置 |
+| `updateCustom` | openid, update(对象) | users | 更新用户自定义字段(color/hue/blur/background_bol/userInfo等) |
+| `updateUserDetail` | openid, userDetail(对象) | users | 更新用户详情 |
+| `updateUserSecret` | openid, secret(布尔) | users | 更新隐私模式开关 |
 
-### 5.7 管理员模块
+#### 5.7.2 统计计数
 
-| 云函数 | 输入参数 | 访问集合 | 功能 |
+| action | 输入参数 | 访问集合 | 功能 |
 |--------|----------|----------|------|
-| `almightyApi` | type + 各类型参数 | 多个 | 万能管理接口(见下方详细) |
-| `controlDiary` | control(布尔) | admin | 控制日记创建开关 |
-| `getAdminX` | 无 | admin | 获取管理员配置(含日记开关) |
+| `setUserAnswer` | openid | users | 清除用户回复状态(answer→false) |
+| `setUserDiaryNum` | openid | users | 用户日记数+1 |
+| `setUserCollectionNum` | openid, num, collection | users | 用户收藏数增减+更新collection数组 |
+| `setUserLikeNum` | openid, num, like | users | 用户点赞数增减+更新like数组 |
 
-**almightyApi 类型明细**:
+#### 5.7.3 社交模块
 
-| type | 功能 | 额外参数 |
-|------|------|----------|
-| `getUsers` | 获取用户列表(搜索/排序/分页) | searchValue, sort, page, per_page |
-| `getDiary` | 搜索所有日记 | searchValue, sort, page, per_page |
-| `getDiaryNo` | 获取所有日记(无搜索) | sort, page, per_page |
-| `adminGetUserInfo` | 管理员获取用户信息(忽略隐私) | openid |
-
-### 5.8 版本模块
-
-| 云函数 | 输入参数 | 访问集合 | 功能 |
+| action | 输入参数 | 访问集合 | 功能 |
 |--------|----------|----------|------|
-| `getVersion` | 无 | versions | 获取版本列表 |
-| `getVersionOne` | 无 | versions | 获取最新版本号 |
-| `updateVersion` | version, content, time | versions | 更新版本信息 |
+| `watchUser` | openid, userOpenid | users | 关注用户(following push+1, 对方fans inc+1) |
+| `unwatchFans` | openid, userOpenid | users | 取消关注(following pull-1, 对方fans inc-1) |
+| `ifWatch` | openid, userOpenid | users | 判断是否关注了某用户 |
+| `setUserFans` | 无(保留) | - | 占位(实际返回WX Context) |
+
+#### 5.7.4 almightyApi — 万能管理接口
+
+| type(通过event.type传入) | 额外参数 | 访问集合 | 功能 |
+|---|---|---|---|
+| `getFollow` | openid | users | 获取用户的关注列表(含userInfo) |
+| `getMyFollow` | openid | users | 获取"我"的关注列表(同上) |
+| `getFans` | openid | users | 获取用户的粉丝列表(反查following) |
+| `getDiaryNo` | page, per_page, sort | diarys, users | 获取所有日记(无搜索，含私密) |
+| `getDiary` | page, per_page, sort, value, openid | diarys, users | 搜索指定用户日记 |
+| `getMyDiary` | id | diarys | 获取指定日记(简单版) |
+| `getUsers` | page, per_page, sort, keyWords | users | 获取用户列表(搜索/排序/分页) |
+| `adminGetUserInfo` | openid | users | 管理员获取用户信息(忽略隐私) |
 
 ---
 
@@ -611,9 +649,9 @@ diaryDetail  userInfo   userDetail  myDiary      myWatch
 **关键云函数调用**:
 - `getDiaryDetail` — 获取日记详情
 - `addDiarySee` — 增加浏览量
-- `getComment` — 获取评论
+- `getComment` — 获取评论(从comments集合按diary_id查询arr)
 - `getCommentBol` — 获取评论权限
-- `uploadComment` — 发表评论
+- `uploadComment` — 发表评论(需传bol区分一级/二级)
 - `setDiaryLike` + `setUserLikeNum` — 点赞
 - `setDiaryCollection` + `setUserCollectionNum` — 收藏
 
@@ -639,7 +677,7 @@ diaryDetail  userInfo   userDetail  myDiary      myWatch
 
 **功能**: 查看其他用户资料、关注/取关、查看其日记/收藏/关注/粉丝
 
-**区别**: 
+**区别**:
 - `userInfo` 遵守隐私设置（secret=true时不显示详情）
 - `adminUserInfo` 忽略隐私（使用 almightyApi）
 
@@ -652,7 +690,7 @@ diaryDetail  userInfo   userDetail  myDiary      myWatch
 
 **功能**: 管理员查看所有日记，可搜索/排序/编辑/锁定
 
-**与index区别**: 使用 `almightyApi` 获取所有日记（包括私密），点击跳转 `adminEditDiary`
+**与index区别**: 使用 `almightyApi(type: 'getDiaryNo')` 获取所有日记（包括私密），点击跳转 `adminEditDiary`
 
 ### 7.7 adminUser — 管理员用户管理
 
@@ -672,17 +710,17 @@ diaryDetail  userInfo   userDetail  myDiary      myWatch
 |------|------|--------|
 | uploadQuestion | 提交问题 | uploadQuestion |
 | myQuestion | 我的问题列表 | getMyQuestion |
-| myQuestionDetail | 我的问题详情 | getMyQuestionDetail |
+| myQuestionDetail | 我的问题详情 | getMyQuestionDetail(含answerInfo.userInfo) |
 | userQuestion | 所有问题(管理员) | getUserQuestion |
-| userQuestionDetail | 问题详情(管理员) | getUserQuestionDetail(同上) |
+| userQuestionDetail | 问题详情(管理员) | getMyQuestionDetail(同上) |
 | answer | 回答问题 | answerQuestion |
 
 ### 7.10 其他页面
 
 | 页面 | 功能 |
 |------|------|
-| myWatch / userWatch | 关注列表(使用ifWatch/watchUser/unwatchFans) |
-| myFans / userFans | 粉丝列表(从users.following反查) |
+| myWatch / userWatch | 关注列表(使用ifWatch/watchUser/unwatchFans或almightyApi getFollow) |
+| myFans / userFans | 粉丝列表(使用almightyApi getFans) |
 | myCollection / userCollection | 收藏列表(使用getMyCollection) |
 | userDetail | 个人资料编辑(使用updateUserDetail) |
 | version | 版本日志查看(使用getVersion) |
@@ -833,7 +871,13 @@ globalData: {
   ▼
 页面事件处理
   │
-  ├──► wx.cloud.callFunction() ──► 云函数 ──► 云数据库
+  ├──► wx.cloud.callFunction({ name: '原始名' })
+  │         │
+  │         ▼ patchCloudFunction()
+  │   wx.cloud.callFunction({ name: '聚合名', data: { action: '原始名', ... } })
+  │         │
+  │         ▼
+  │   云函数(handlers[action]) ──► 云数据库
   │                                                    │
   │    ◄── 返回结果 ◄─────────────────────────────────┘
   │
@@ -853,6 +897,8 @@ App.onLaunch()
   │
   ├── wx.cloud.init(env: 'cloud1-d3g9ga0ffb1a3625a')
   │
+  ├── this.patchCloudFunction() ◄── 初始化云函数路由兼容层
+  │
   ├── wx.getSystemInfo() → globalData.navHeight/customHeight
   │
   ├── 检查 Storageopenid
@@ -864,6 +910,23 @@ App.onLaunch()
       ├── 初始化globalData(color/blur/background/userInfo/roles)
       └── initBol = true → 各页面开始轮询等待initBol
 ```
+
+### 10.5 patchCloudFunction 兼容层详解 (新增)
+
+```javascript
+// app.js 中的核心逻辑:
+// 1. 定义 functionRoute 映射表: 原始函数名 → 聚合云函数名
+// 2. 拦截 wx.cloud.callFunction
+// 3. 当调用 name 在 functionRoute 中时:
+//    - 替换 name 为聚合函数名
+//    - 在 data 中注入 action: 原始函数名
+// 4. 设置 __mergedApiPatched 防止重复拦截
+```
+
+**优势**:
+- 前端 47 处调用无需修改任何代码
+- 新增云函数只需在 handlers 和 functionRoute 各加一行
+- 便于后续迁移和扩展
 
 ---
 
@@ -885,6 +948,7 @@ App.onLaunch()
 | 管理员页面 | roles[0]==='admin' | 前端条件渲染 |
 | 隐私保护 | user.secret===true | getUserInfo隐藏详情 / almightyApi忽略 |
 | 日记编辑 | openid匹配 | updateDiary云函数验证openid |
+| 版本更新 | ADMIN_OPENID校验 | updateVersion云函数硬编码校验 |
 
 ### 11.3 管理员功能
 
@@ -944,16 +1008,42 @@ App.onLaunch()
 | age.svg / area.svg / birth.svg / email.svg | 个人资料项 |
 | set.svg / set1.svg | 设置 |
 
-### 13.2 PNG 图片（6个）
+### 13.2 PNG 图标 — redesign 系列（31个，UI重设计）
+
+| 图标 | 用途 |
+|------|------|
+| tab-home.png / tab-home-active.png | TabBar首页(当前使用) |
+| tab-user.png / tab-user-active.png | TabBar我的(当前使用) |
+| tab-record.png / tab-record-active.png | TabBar记录(预留) |
+| action-like.png / action-like-active.png | 点赞(默认/选中态) |
+| action-star.png / action-star-active.png | 收藏(默认/选中态) |
+| action-comment.png / action-comment-soft.png | 评论(默认/按下态) |
+| action-edit.png | 编辑 |
+| action-send.png | 发送 |
+| admin.png | 管理入口 |
+| users.png | 用户管理 |
+| diary.png | 日记管理 |
+| feedback.png | 反馈 |
+| question.png | 问题 |
+| version.png | 版本 |
+| profile.png / profile-age.png / profile-area.png / profile-birth.png / profile-email.png | 个人资料相关 |
+| palette.png | 配色 |
+| blur.png | 毛绒 |
+| secret.png | 隐私 |
+| image.png | 背景 |
+| record.png | 记录 |
+| comment.png | 评论 |
+
+### 13.3 其他 PNG 图片（6个）
 
 | 图片 | 用途 |
 |------|------|
 | dot.png | 毛绒效果背景点阵图 |
 | wx.png | 微信默认头像 |
-| tabbar/index1.png | 首页Tab(未选中) |
-| tabbar/index2.png | 首页Tab(选中) |
-| tabbar/my1.png | 我的Tab(未选中) |
-| tabbar/my2.png | 我的Tab(选中) |
+| tabbar/index1.png | 旧首页Tab(已弃用) |
+| tabbar/index2.png | 旧首页Tab选中(已弃用) |
+| tabbar/my1.png | 旧我的Tab(已弃用) |
+| tabbar/my2.png | 旧我的Tab选中(已弃用) |
 
 ---
 
@@ -963,23 +1053,33 @@ App.onLaunch()
 
 - 微信开发者工具（稳定版/预发布版/开发版）
 - 基础库 3.15.2+
-- 云开发环境（需开通特惠基础版1，6.9元/月，支持47个云函数）
+- 云开发环境（需开通特惠基础版1，6.9元/月，支持5个聚合云函数）
 
 ### 14.2 部署步骤
 
-1. **修改AppID**: `project.config.json` 第48行
+1. **修改AppID**: `project.config.json` 第47行
 2. **修改云环境ID**: `app.js` 第13行 `env: '你的环境ID'`
-3. **部署云函数**: cloudfunctions 下每个文件夹右键 → 创建并部署(云端安装依赖)
+3. **部署云函数**: cloudfunctions 下 5 个文件夹各自右键 → 创建并部署(云端安装依赖):
+   - adminApi
+   - authApi
+   - diaryApi
+   - questionApi
+   - userApi
 4. **创建数据库集合**: admin / comments / diarys / questions / users / versions
-5. **配置admin集合**: 添加 controlChat(false) + controlDiary(false) + openid([])
+5. **配置admin集合**: 添加 _id('5290ec146a0faef3001585d25d2205fe') + controlChat(false) + controlDiary(false) + openid([])
 6. **配置versions集合**: 添加 arr([]) + updatedTime("") + openid("") + version("")
-7. **更新云函数中的_id**: getAdminX/controlDiary/getVersion/getVersionOne 中引用admin/versions的_id
+7. **更新云函数中的常量**:
+   - `adminApi/index.js`: `VERSION_ID` 和 `_id`(getAdminX/getCommentBol中的硬编码ID)
+   - `adminApi/index.js`: `ADMIN_OPENID`(updateVersion权限校验)
 8. **设置集合权限**: 全部设为"所有用户可读，仅创建者可读写"
 9. **注册管理员**: 登录后在users集合中将roles改为["admin"]，在admin集合openid数组中添加openid
 
 ### 14.3 注意事项
 
-- 云函数 `getAdminX`、`controlDiary`、`getVersion`、`getVersionOne` 中硬编码了admin/versions集合的 `_id`，部署时必须修改
-- 默认背景图URL存储在 `createUser` 函数中的 userSchema 里
-- 登录流程已从 `wx.getUserInfo` 迁移到 `wx.getUserProfile`（旧API保留但已注释）
-- `app.js` 中 `initData` 和 `initDataX` 存在重复逻辑，`initDataX` 是更新版本（含头像同步），但当前仅使用 `initData`
+- **云函数常量**: adminApi 中 `VERSION_ID`、getAdminX/getCommentBol 的 `_id`、`ADMIN_OPENID` 为硬编码，部署时必须根据实际环境修改
+- **默认背景图URL**: 存储在 `createUser` 函数中的 userSchema 里
+- **登录流程**: 已迁移到 `wx.getUserProfile` 方式（旧API已注释）
+- **patchCloudFunction**: 在 `onLaunch` 中调用，必须在 `wx.cloud.init()` 之后执行
+- **comments 数据结构变更**: 已从"每条评论独立文档"改为"每日记一文档(arr数组)"，旧数据需迁移
+- **questions 数据结构变更**: 字段名调整(title→question, answerContent/answerTime→answerInfo, cancel→ifDelete)
+- **diarys 新增 dayNum 字段**: 用于显示日记天数
