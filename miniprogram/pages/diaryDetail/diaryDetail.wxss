@@ -103,7 +103,7 @@
 }
 
 .detail-container {
-  width: 88%;
+  width: 92%;
   height: auto;
   margin: 0 auto;
   position: relative;

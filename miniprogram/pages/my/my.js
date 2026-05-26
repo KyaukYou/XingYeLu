@@ -33,12 +33,14 @@ Page({
     toastDurationX: 0,
     answer_text: "",
     userInfoBoolean: false,
-    newUserInfo: {}
+    newUserInfo: {},
+    isLogin: false
   },
   // 初始化自定义导航栏
   async firstHeader() {
     this.setData({
-      globalData: app.globalData
+      globalData: app.globalData,
+      isLogin: !!wx.getStorageSync('openid')
     })
   },
   //输入一句话
@@ -126,7 +128,8 @@ Page({
         this.setData({
           globalData: app.globalData,
           rgb: app.globalData.color,
-          color: app.globalData.background === true ? "" : app.globalData.color
+          color: app.globalData.background === true ? "" : app.globalData.color,
+          isLogin: !!wx.getStorageSync('openid')
         })
         if (wx.getStorageSync('user')) {
           let res = wx.getStorageSync('user');
@@ -244,6 +247,82 @@ Page({
       background_bol: e.detail.value,
       hue: wx.getStorageSync('hue') ? wx.getStorageSync('hue') : 347
     })
+  },
+
+  async chooseAvatar(e) {
+    const avatarUrl = e.detail.avatarUrl
+    if (!avatarUrl || !wx.getStorageSync('openid')) {
+      return
+    }
+
+    this.setData({
+      toastBol1: true
+    })
+
+    try {
+      const fileID = await this.uploadAvatar(avatarUrl)
+      await this.updateUserInfo({
+        avatarUrl: fileID
+      })
+    } catch (err) {
+      console.error(err)
+      this.setData({
+        toastBolX: true,
+        toastTitleX: "头像更新失败",
+        toastDurationX: 2000
+      })
+    }
+
+    this.setData({
+      toastBol1: false
+    })
+  },
+
+  async saveNickName(e) {
+    if (!wx.getStorageSync('openid')) {
+      return
+    }
+
+    const nickName = (e.detail.value || '').trim()
+    if (!nickName || nickName === app.globalData.userInfo.nickName) {
+      return
+    }
+
+    await this.updateUserInfo({
+      nickName
+    })
+  },
+
+  async uploadAvatar(filePath) {
+    const openid = wx.getStorageSync('openid')
+    const extMatch = filePath.match(/\.[^.]+?$/)
+    const ext = extMatch ? extMatch[0] : '.png'
+    const cloudPath = 'user/' + openid + '/avatar/' + new Date().getTime() + ext
+    const res = await wx.cloud.uploadFile({
+      cloudPath,
+      filePath
+    })
+    return res.fileID
+  },
+
+  async updateUserInfo(update) {
+    const updateData = {}
+    Object.keys(update).forEach((key) => {
+      updateData['userInfo.' + key] = update[key]
+    })
+
+    const res = await wx.cloud.callFunction({
+      name: 'updateCustom',
+      data: {
+        openid: wx.getStorageSync('openid'),
+        update: updateData
+      }
+    })
+
+    if (res.result && res.result.stats && res.result.stats.updated === 1) {
+      await app.initData()
+      this.getGlobalData()
+    }
   },
 
   //获取用户数据
