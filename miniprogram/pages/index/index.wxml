@@ -3,7 +3,8 @@
 </l-capsule-bar> -->
 <lc_header header_title='月与枝' header_color="{{globalData.color}}" blur="{{globalData.blur}}" back="{{back}}"></lc_header>
 <!-- bindtouchmove="ballMoveEvent" -->
-<view wx:if="{{showBtn}}" hover-class="opacity_button_pos" class="to_create" style="background-color: {{globalData.color}}; right: {{pos.right}}; bottom: {{pos.bottom}}" bindtap="toCreate">
+<!-- wx:if="{{showBtn}}" -->
+<view hover-class="opacity_button_pos" class="to_create" style="background-color: {{globalData.color}}; right: {{pos.right}}; bottom: {{pos.bottom}}" bindtap="toCreate">
   <image src='/images/add.svg'></image>
 </view>
 
@@ -56,7 +57,7 @@
           <view class="diary_left">
             <image class="diary_title_image" mode='aspectFill' src='/images/load.svg'></image>
             <image class="diary_title_image" mode='aspectFill' src='{{diary_item.title_image.url}}' data-index="{{diary_index}}" data-openid="{{diary_item.openid}}" data-id="{{diary_item._id}}"  bindtap="toDetail"></image>
-            <view class="diary_user" data-openid='{{diary_item.userInfo.openid}}' catchtap='toUsers'>
+            <view wx:if="{{controlDiary_bol}}" class="diary_user" data-openid='{{diary_item.userInfo.openid}}' catchtap='toUsers'>
               <image src='{{diary_item.userInfo.avatarUrl}}'></image> by <view>{{diary_item.userInfo.nickName}}</view>
             </view>
             <view class="diary_lock" data-index="{{diary_index}}" data-openid="{{diary_item.openid}}" bindtap="lockDiary">
@@ -107,7 +108,7 @@
           <view class="diary_left">
             <image class="diary_title_image" mode='aspectFill' src='/images/load.svg'></image>
             <image class="diary_title_image" mode='aspectFill' src='{{diary_item.title_image.url}}'  data-index="{{diary_index}}" data-openid="{{diary_item.openid}}" data-id="{{diary_item._id}}" bindtap="toDetail"></image>
-            <view class="diary_user" data-openid='{{diary_item.userInfo.openid}}' catchtap='toUsers'>
+            <view wx:if="{{controlDiary_bol}}" class="diary_user" data-openid='{{diary_item.userInfo.openid}}' catchtap='toUsers'>
               <image src='{{diary_item.userInfo.avatarUrl}}'></image> by <view>{{diary_item.userInfo.nickName}}</view>
             </view>
             <view class="diary_lock" data-index="{{diary_index}}" data-openid="{{diary_item.openid}}" bindtap="lockDiary">

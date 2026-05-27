@@ -167,7 +167,13 @@ Page({
       }
     })
     console.log(res)
-    if(res.result.errMsg === "collection.update:ok") {
+    const updateOk = res && res.result && (
+      (res.result.stats && res.result.stats.updated > 0) ||
+      res.result.errMsg === "collection.update:ok" ||
+      res.result.errMsg === "document.update:ok" ||
+      res.result.errMsg === "collection.add:ok"
+    )
+    if(updateOk) {
       this.setData({
         toastBol1: true,
         toastTitle1: "更新成功",
