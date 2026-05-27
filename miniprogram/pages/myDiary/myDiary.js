@@ -32,7 +32,8 @@ Page({
     searchValue: "",
     searchBol: false,
     tabCurrent: 'tab_one',
-    bottomLoading: false
+    bottomLoading: false,
+    controlDiary_bol: true
   },
   //获取输入内容
   changeSearchValue(e) {
@@ -69,6 +70,11 @@ Page({
   },
   //搜索
   async searchFn() {
+    if (!this.data.controlDiary_bol && (this.data.tabCurrent === 'tab_three' || this.data.tabCurrent === 'tab_four')) {
+      this.setData({
+        tabCurrent: 'tab_one'
+      })
+    }
     //有值
     if(this.data.searchBol === true) {
       if(this.data.tabCurrent == 'tab_one') {
@@ -102,6 +108,11 @@ Page({
   },
   
   async searchFnX() {
+    if (!this.data.controlDiary_bol && (this.data.tabCurrent === 'tab_three' || this.data.tabCurrent === 'tab_four')) {
+      this.setData({
+        tabCurrent: 'tab_one'
+      })
+    }
     //有值
     if(this.data.searchBol === true) {
       if(this.data.tabCurrent == 'tab_one') {
@@ -305,6 +316,22 @@ Page({
       })
     }
   },
+  async getAdminX() {
+    let res = await wx.cloud.callFunction({
+      name: 'getAdminX',
+      data: {}
+    })
+    if (res.result.errMsg === "collection.get:ok" && res.result.data.length > 0) {
+      const controlDiary = res.result.data[0].controlDiary === true
+      const nextData = {
+        controlDiary_bol: controlDiary
+      }
+      if (!controlDiary && (this.data.tabCurrent === 'tab_three' || this.data.tabCurrent === 'tab_four')) {
+        nextData.tabCurrent = 'tab_one'
+      }
+      this.setData(nextData)
+    }
+  },
   // 初始化自定义导航栏
   async firstHeader() {
     this.setData({
@@ -334,6 +361,7 @@ Page({
   },
   //scroll-view 自定义下拉刷新
   async refresh() {
+    await this.getAdminX();
     await this.getUserArr();
     this.setData({
       page: 1,
@@ -636,6 +664,7 @@ Page({
     this.setData({
       page: 1
     })
+    await this.getAdminX();
     await this.getUserArr();
     await this.getGlobalData();
     await this.searchFn();
@@ -651,8 +680,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {   
-    
+  onShow: async function () {
+    await this.getAdminX();
   },
 
   /**

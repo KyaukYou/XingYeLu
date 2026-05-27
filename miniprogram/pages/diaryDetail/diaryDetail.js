@@ -32,7 +32,8 @@ Page({
     loginIcon: '',
     commentArr: [],
     commentNum: 0,
-    commentBol: false
+    commentBol: false,
+    controlDiary_bol: true
   },
   async refresh() {
     this.setData({
@@ -313,6 +314,18 @@ Page({
     },100)
   },
 
+  async getAdminX() {
+    let res = await wx.cloud.callFunction({
+      name: 'getAdminX',
+      data: {}
+    })
+    if (res.result.errMsg === "collection.get:ok" && res.result.data.length > 0) {
+      this.setData({
+        controlDiary_bol: res.result.data[0].controlDiary === true
+      })
+    }
+  },
+
 
   // 评论事件
   // 评论头像点击
@@ -505,6 +518,7 @@ Page({
   },
 
   async init() {
+    await this.getAdminX();
     await this.getUserArr();
     await this.getDiaryDetail();
     await this.getCommentBol();
@@ -520,7 +534,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: async function () {
+    await this.getAdminX();
   },
 
   /**

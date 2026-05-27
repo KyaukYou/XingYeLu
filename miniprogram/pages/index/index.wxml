@@ -1,7 +1,7 @@
 <!--pages/index.wxml-->
-<!-- <l-capsule-bar hidden-capsule bg-color='{{globalData.color}}' disable-back home-page="/pages/index/index" title="小柴随心记">
+<!-- <l-capsule-bar hidden-capsule bg-color='{{globalData.color}}' disable-back home-page="/pages/index/index" title="月与枝">
 </l-capsule-bar> -->
-<lc_header header_title='小柴随心记' header_color="{{globalData.color}}" blur="{{globalData.blur}}" back="{{back}}"></lc_header>
+<lc_header header_title='月与枝' header_color="{{globalData.color}}" blur="{{globalData.blur}}" back="{{back}}"></lc_header>
 <!-- bindtouchmove="ballMoveEvent" -->
 <view wx:if="{{showBtn}}" hover-class="opacity_button_pos" class="to_create" style="background-color: {{globalData.color}}; right: {{pos.right}}; bottom: {{pos.bottom}}" bindtap="toCreate">
   <image src='/images/add.svg'></image>
@@ -26,11 +26,15 @@
     <l-search-bar value="{{searchValue}}" class="index_search" placeholder="搜索"  cancel-text="搜索"  clear  bind:lincancel="clickSearchFn"  bind:linclear="clearSearchValue" bind:linchange="changeSearchValue"  />
     <!-- </view> -->
     <view class="index_tab">
-      <l-segment active-color='{{globalData.color}}' bind:linchange="changeTabs" active-key="{{tabCurrent}}">
+      <l-segment wx:if="{{controlDiary_bol}}" active-color='{{globalData.color}}' bind:linchange="changeTabs" active-key="{{tabCurrent}}">
         <l-segment-item tab="最近更新" key="tab_one" />
         <l-segment-item tab="时间正序" key="tab_two" />
         <l-segment-item tab="点赞次数" key="tab_three" />
         <l-segment-item tab="浏览次数" key="tab_four" />
+      </l-segment>
+      <l-segment wx:else active-color='{{globalData.color}}' bind:linchange="changeTabs" active-key="{{tabCurrent}}">
+        <l-segment-item tab="最近更新" key="tab_one" />
+        <l-segment-item tab="时间正序" key="tab_two" />
       </l-segment>
     </view>
   </view>
@@ -65,7 +69,7 @@
             <view class="diary_time">{{diary_item.updatedTime}}</view>
             <view class="diary_location">{{diary_item.location}}</view>
             <view class="diary_more">{{diary_item.dayNum}}天 | 浏览{{diary_item.see}}次</view>
-            <view class="diary_bottom">
+            <view wx:if="{{controlDiary_bol}}" class="diary_bottom">
               <view class="diary_like" data-index="{{diary_index}}" data-openid="{{diary_item.openid}}" data-id="{{diary_index._id}}" bindtap="setLike">
                 <image wx:if="{{diary_item.inLike  === false}}" class="action_icon action_like_icon" src="/images/redesign/action-like.png"></image>
                 <image wx:if="{{diary_item.inLike  === true}}" class="action_icon action_like_icon" src="/images/redesign/action-like-active.png"></image>
@@ -87,7 +91,7 @@
             <view class="diary_time">{{diary_item.updatedTime}}</view>
             <view class="diary_location">{{diary_item.location}}</view>
             <view class="diary_more">{{diary_item.dayNum}}天 | 浏览{{diary_item.see}}次</view>
-            <view class="diary_bottom">
+            <view wx:if="{{controlDiary_bol}}" class="diary_bottom">
               <view class="diary_like" data-index="{{diary_index}}" data-openid="{{diary_item.openid}}" data-id="{{diary_index._id}}" bindtap="setLike">
                 <image wx:if="{{diary_item.inLike  === false}}" class="action_icon action_like_icon" src="/images/redesign/action-like.png"></image>
                 <image wx:if="{{diary_item.inLike  === true}}" class="action_icon action_like_icon" src="/images/redesign/action-like-active.png"></image>

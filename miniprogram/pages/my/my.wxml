@@ -23,7 +23,7 @@
 <lc_header header_title='我的信息' header_color="{{globalData.color}}" blur="{{globalData.blur}}" back="{{back}}"></lc_header> 
 
 
-<view class="my" style="padding-top: {{globalData.customHeight.height+globalData.customHeight.top+6}}px;">
+<view class="my {{controlDiary_bol ? '' : 'diary-closed'}}" style="padding-top: {{globalData.customHeight.height+globalData.customHeight.top+6}}px;">
     <view class="my_header"  style="background-color: {{globalData.color}}; background-image:{{globalData.blur === true ? 'url(https://6c69-littlechai-8gbpxj2baa4e412f-1257711591.tcb.qcloud.la/system/dot.png?sign=f6f105901602fb46727be2f82c1b33b4&t=1610067412)' : ''}};">
       
       <!-- 自定义背景图 -->
@@ -63,7 +63,7 @@
             </view>
           </view>
 
-          <view class="my_info_bottom">
+          <view wx:if="{{controlDiary_bol}}" class="my_info_bottom">
 
             <view class="my_info_list_border my_info_list_border1"></view>
             <view class="my_info_list_border my_info_list_border2"></view>
@@ -109,6 +109,7 @@
 
     <scroll-view style="padding-top: {{globalData.customHeight.height+globalData.customHeight.top+6}}px;" class="my_container" scroll-y refresher-enabled bindrefresherrefresh='refresh' refresher-triggered='{{refreshBol}}'>
       <view class="my_wrap">
+        <l-list wx:if="{{!controlDiary_bol}}" title="我的日记" image="/images/redesign/my-diary.png" tag-content="{{info.diary_num || 0}}" tagShape="circle" tag-position="right" tag-color="{{globalData.color}}" bindtap="toMyDiary" />
         <l-list title="个人资料" image="/images/redesign/profile.png" bindtap="toUserDetail" />
         <!-- <l-list wx:if="{{globalData.roles[0] === 'admin'}}" title="电影日记" image="/images/film.svg" bindtap='toFilm'></l-list> -->
         <l-list title="显示背景" image="/images/redesign/image.png">

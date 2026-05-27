@@ -1,0 +1,88 @@
+<lc_header header_title="{{mode === 'edit' ? '编辑大事件' : '添加大事件'}}" header_color="{{globalData.color || '#4a90d9'}}" blur="{{globalData.blur}}" back="{{back}}"></lc_header>
+<l-toast show="{{toastBol}}" title="{{toastTitle}}" duration="{{toastDuration}}" />
+
+<view class="record-page" style="padding-top: {{globalData.customHeight.height + globalData.customHeight.top + 6}}px;">
+  <scroll-view class="edit-scroll" scroll-y>
+    <view class="form-card">
+      <view class="form-row">
+        <view class="row-label">标题</view>
+        <view class="row-content">
+          <input maxlength="50" value="{{record.title}}" data-field="title" bindinput="changeField" placeholder="给这个重要时刻起个名字" />
+        </view>
+      </view>
+
+      <view class="form-row">
+        <view class="row-label">日期</view>
+        <view class="row-content row-content-button">
+        <picker mode="date" value="{{record.event_date}}" bindchange="changeDate">
+          <view class="picker-value">{{record.event_date}}</view>
+        </picker>
+          <view class="mini-button" style="background: {{globalData.color || '#4a90d9'}}">选择日期</view>
+        </view>
+      </view>
+
+      <view class="form-row form-row-auto">
+        <view class="row-label">标签</view>
+        <view class="row-content">
+          <view class="tag-area">
+            <view class="tag-input">
+              <input value="{{tagInput}}" bindinput="changeTag" placeholder="添加标签" />
+              <view style="background: {{globalData.color || '#4a90d9'}}" bindtap="addTag">添加</view>
+            </view>
+            <view class="tags">
+              <text wx:for="{{record.tags}}" wx:key="index" wx:for-index="tag_index" data-index="{{tag_index}}" bindtap="removeTag">{{item}} ×</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="form-row form-row-auto">
+        <view class="row-label">重要程度</view>
+        <view class="row-content">
+        <view class="importance-row">
+          <text wx:for="{{importanceOptions}}" wx:key="*this" data-value="{{item}}" bindtap="setImportance" class="{{item <= record.importance ? 'on' : ''}}">{{item}}</text>
+        </view>
+        </view>
+      </view>
+
+      <view class="form-row form-row-auto">
+        <view class="row-label">心情</view>
+        <view class="row-content">
+        <view class="mood-row">
+          <text wx:for="{{moods}}" wx:key="*this" data-mood="{{item}}" bindtap="setMood" class="{{record.mood === item ? 'active' : ''}}">{{item}}</text>
+        </view>
+        </view>
+      </view>
+
+      <view class="form-row">
+        <view class="row-label">位置</view>
+        <view class="row-content">
+        <input value="{{record.location}}" data-field="location" bindinput="changeField" placeholder="可选" />
+        </view>
+      </view>
+    </view>
+
+    <view class="content-card">
+      <view class="section-head">内容</view>
+        <textarea value="{{record.description}}" data-field="description" bindinput="changeField" placeholder="今天有什么值得留下？" />
+      </view>
+
+    <view class="media-card">
+      <view class="section-head">图片</view>
+        <view class="image-grid">
+          <view wx:for="{{record.images}}" wx:key="index" wx:for-index="image_index" class="image-cell">
+            <image src="{{item.url}}" mode="aspectFill"></image>
+            <view class="image-remove" data-index="{{image_index}}" catchtap="removeImage">×</view>
+          </view>
+          <view wx:if="{{record.images.length < 9}}" class="image-add" bindtap="chooseImages">+</view>
+        </view>
+      </view>
+
+    <view class="save-button" style="background: {{globalData.color || '#4a90d9'}}" bindtap="saveRecord">
+      <block wx:if="{{saving}}">
+        <l-loading show size="mini" type="circle" color="#fff"></l-loading>
+      </block>
+      <block wx:else>保存</block>
+    </view>
+  </scroll-view>
+</view>

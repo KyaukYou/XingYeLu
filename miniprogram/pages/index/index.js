@@ -33,7 +33,8 @@ Page({
     searchValue: "",
     searchBol: false,
     tabCurrent: 'tab_one',
-    bottomLoading: false
+    bottomLoading: false,
+    controlDiary_bol: true
   },
   //获取输入内容
   changeSearchValue(e) {
@@ -69,6 +70,11 @@ Page({
   },
   //搜索
   async searchFn() {
+    if (!this.data.controlDiary_bol && (this.data.tabCurrent === 'tab_three' || this.data.tabCurrent === 'tab_four')) {
+      this.setData({
+        tabCurrent: 'tab_one'
+      })
+    }
     //有值
     if(this.data.searchBol === true) {
       if(this.data.tabCurrent == 'tab_one') {
@@ -102,6 +108,11 @@ Page({
   },
   
   async searchFnX() {
+    if (!this.data.controlDiary_bol && (this.data.tabCurrent === 'tab_three' || this.data.tabCurrent === 'tab_four')) {
+      this.setData({
+        tabCurrent: 'tab_one'
+      })
+    }
     //有值
     if(this.data.searchBol === true) {
       if(this.data.tabCurrent == 'tab_one') {
@@ -138,13 +149,15 @@ Page({
     this.setData({
       page: 1
     })
+    const functionName = this.data.controlDiary_bol ? 'getDiary_value' : 'getMyDiary_value'
     let res = await wx.cloud.callFunction({
-      name: 'getDiary_value',
+      name: functionName,
       data: {
         page: this.data.page,
         per_page: this.data.per_page,
         value: value,
         sort: sort,
+        openid: wx.getStorageSync('openid')
       }
     })
 
@@ -175,12 +188,14 @@ Page({
     this.setData({
       page: 1
     })
+    const functionName = this.data.controlDiary_bol ? 'getDiary_noValue' : 'getMyDiary_noValue'
     let res = await wx.cloud.callFunction({
-      name: 'getDiary_noValue',
+      name: functionName,
       data: {
         page: this.data.page,
         per_page: this.data.per_page,
         sort: sort,
+        openid: wx.getStorageSync('openid')
       }
     })
 
@@ -208,13 +223,15 @@ Page({
   },
 
   async getDiary_valueX(value,sort,type) {
+    const functionName = this.data.controlDiary_bol ? 'getDiary_value' : 'getMyDiary_value'
     let res = await wx.cloud.callFunction({
-      name: 'getDiary_value',
+      name: functionName,
       data: {
         page: this.data.page,
         per_page: this.data.per_page,
         value: value,
         sort: sort,
+        openid: wx.getStorageSync('openid')
       }
     })
 
@@ -248,12 +265,14 @@ Page({
     
   },
   async getDiary_noValueX(sort,type) {
+    const functionName = this.data.controlDiary_bol ? 'getDiary_noValue' : 'getMyDiary_noValue'
     let res = await wx.cloud.callFunction({
-      name: 'getDiary_noValue',
+      name: functionName,
       data: {
         page: this.data.page,
         per_page: this.data.per_page,
         sort: sort,
+        openid: wx.getStorageSync('openid')
       }
     })
 
@@ -325,9 +344,17 @@ Page({
         }
       })
       console.log(res)
-      this.setData({
-        showBtn: res.result.data[0].controlDiary === true ? true: false
-      })
+      const controlDiary = res.result.data[0].controlDiary === true
+      const oldControlDiary = this.data.controlDiary_bol
+      const nextData = {
+        showBtn: controlDiary,
+        controlDiary_bol: controlDiary
+      }
+      if (!controlDiary && (this.data.tabCurrent === 'tab_three' || this.data.tabCurrent === 'tab_four')) {
+        nextData.tabCurrent = 'tab_one'
+      }
+      this.setData(nextData)
+      return oldControlDiary !== controlDiary
   },
   // 初始化自定义导航栏
   async firstHeader() {
@@ -356,7 +383,7 @@ Page({
   },
   //scroll-view 自定义下拉刷新
   async refresh() {
-    this.getAdminX();
+    await this.getAdminX();
     await this.getUserArr();
     this.setData({
       page: 1,
@@ -826,6 +853,7 @@ Page({
     this.setData({
       page: 1
     })
+    await this.getAdminX();
     await this.getUserArr();
     await this.searchFn();
   },
@@ -840,9 +868,17 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {   
+  onShow: async function () {
     this.getGlobalData();
-    this.getAdminX();
+    const changed = await this.getAdminX();
+    if (changed) {
+      this.setData({
+        page: 1,
+        noDiary: false,
+        loadingBol: true
+      })
+      await this.searchFn();
+    }
   },
 
   /**

@@ -32,11 +32,12 @@
         <view class='detail-title'>
           <view class='detail-title-top'>{{info.userInfo.nickName}}</view>
           <view class='detail-title-bottom'>
-            <text decode='true'>{{info.updatedTime}}&emsp;{{info.like}}人点赞&emsp;{{info.see}}浏览</text>
+            <text wx:if="{{controlDiary_bol}}" decode='true'>{{info.updatedTime}}&emsp;{{info.like}}人点赞&emsp;{{info.see}}浏览</text>
+            <text wx:else decode='true'>{{info.updatedTime}}</text>
           </view>
         </view>
 
-        <view class="detail_bottomx">
+        <view wx:if="{{controlDiary_bol}}" class="detail_bottomx">
           <view class="diary_like" bindtap="setLike">
             <image wx:if="{{info.inLike  === false}}" class="action_icon action_like_icon" src="/images/redesign/action-like.png"></image>
             <image wx:if="{{info.inLike  === true}}" class="action_icon action_like_icon" src="/images/redesign/action-like-active.png"></image>

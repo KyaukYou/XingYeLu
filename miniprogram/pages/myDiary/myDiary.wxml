@@ -27,8 +27,10 @@
       <l-segment active-color='{{globalData.color}}' bind:linchange="changeTabs" active-key="{{tabCurrent}}">
         <l-segment-item tab="最近更新" key="tab_one" />
         <l-segment-item tab="时间正序" key="tab_two" />
-        <l-segment-item tab="点赞次数" key="tab_three" />
-        <l-segment-item tab="浏览次数" key="tab_four" />
+        <block wx:if="{{controlDiary_bol}}">
+          <l-segment-item tab="点赞次数" key="tab_three" />
+          <l-segment-item tab="浏览次数" key="tab_four" />
+        </block>
       </l-segment>
     </view>
   </view>
@@ -63,7 +65,7 @@
             <view class="diary_time">{{diary_item.updatedTime}}</view>
             <view class="diary_location">{{diary_item.location}}</view>
             <view class="diary_more">{{diary_item.dayNum}}天 | 浏览{{diary_item.see}}次</view>
-            <view class="diary_bottom">
+            <view wx:if="{{controlDiary_bol}}" class="diary_bottom">
               <view class="diary_like" data-index="{{diary_index}}" data-openid="{{diary_item.openid}}" data-id="{{diary_index._id}}" bindtap="setLike">
                 <image wx:if="{{diary_item.inLike  === false}}" class="action_icon action_like_icon" src="/images/redesign/action-like.png"></image>
                 <image wx:if="{{diary_item.inLike  === true}}" class="action_icon action_like_icon" src="/images/redesign/action-like-active.png"></image>
@@ -85,7 +87,7 @@
             <view class="diary_time">{{diary_item.updatedTime}}</view>
             <view class="diary_location">{{diary_item.location}}</view>
             <view class="diary_more">{{diary_item.dayNum}}天 | 浏览{{diary_item.see}}次</view>
-            <view class="diary_bottom">
+            <view wx:if="{{controlDiary_bol}}" class="diary_bottom">
               <view class="diary_like" data-index="{{diary_index}}" data-openid="{{diary_item.openid}}" data-id="{{diary_index._id}}" bindtap="setLike">
                 <image wx:if="{{diary_item.inLike  === false}}" class="action_icon action_like_icon" src="/images/redesign/action-like.png"></image>
                 <image wx:if="{{diary_item.inLike  === true}}" class="action_icon action_like_icon" src="/images/redesign/action-like-active.png"></image>

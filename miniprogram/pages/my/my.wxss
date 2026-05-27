@@ -84,3 +84,15 @@
   box-sizing: border-box;
   padding: 0 10rpx;
 }
+
+.diary-closed .my_header {
+  height: 310rpx;
+}
+
+.diary-closed .my_info_top {
+  top: 12%;
+}
+
+.diary-closed .my_container {
+  top: 310rpx;
+}

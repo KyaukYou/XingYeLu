@@ -1,0 +1,289 @@
+.record-page {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 600;
+  background: #f1f3f6;
+  box-sizing: border-box;
+}
+
+.edit-scroll {
+  position: absolute;
+  top: 172rpx;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  padding: 24rpx 18rpx 44rpx;
+}
+
+.form-card,
+.content-card,
+.media-card,
+.tag-card {
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.content-card,
+.media-card,
+.tag-card {
+  margin-top: 16rpx;
+  padding: 22rpx 22rpx 24rpx;
+}
+
+.form-row {
+  width: 100%;
+  min-height: 88rpx;
+  position: relative;
+  color: #333;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  font-size: 28rpx;
+}
+
+.form-row::after {
+  content: "";
+  position: absolute;
+  left: 18rpx;
+  right: 18rpx;
+  bottom: 0;
+  height: 1rpx;
+  background: #f0f2f5;
+}
+
+.form-row:last-child::after {
+  display: none;
+}
+
+.form-row-auto {
+  min-height: 110rpx;
+  align-items: flex-start;
+  padding: 22rpx 0;
+  box-sizing: border-box;
+}
+
+.row-label {
+  width: 176rpx;
+  box-sizing: border-box;
+  padding-left: 22rpx;
+  color: #333;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  white-space: nowrap;
+}
+
+.row-content {
+  flex: 1;
+  min-width: 0;
+  min-height: 88rpx;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding-right: 16rpx;
+}
+
+.form-row-auto .row-content {
+  min-height: 0;
+}
+
+.row-content input {
+  width: 100%;
+  height: 88rpx;
+  color: #333;
+  font-size: 28rpx;
+}
+
+.row-content-button {
+  position: relative;
+  padding-right: 144rpx;
+}
+
+.picker-value {
+  height: 88rpx;
+  line-height: 88rpx;
+  color: #333;
+  font-size: 28rpx;
+}
+
+.mini-button {
+  position: absolute;
+  right: 12rpx;
+  top: 50%;
+  width: 124rpx;
+  height: 72rpx;
+  border-radius: 10rpx;
+  color: #fff;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+}
+
+.importance-row {
+  display: flex;
+  gap: 12rpx;
+}
+
+.importance-row text {
+  width: 58rpx;
+  height: 58rpx;
+  border-radius: 50%;
+  color: #8a94a6;
+  background: #f3f6fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+}
+
+.importance-row .on {
+  color: #fff;
+  background: #f59e0b;
+}
+
+.mood-row,
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.mood-row text,
+.tags text {
+  padding: 8rpx 14rpx;
+  border-radius: 999rpx;
+  background: #f3f6fa;
+  color: #667085;
+  font-size: 24rpx;
+}
+
+.mood-row .active {
+  color: #fff;
+  background: #4a90d9;
+}
+
+.section-head {
+  margin-bottom: 16rpx;
+  color: #333;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.content-card textarea {
+  width: 100%;
+  height: 280rpx;
+  min-height: 280rpx;
+  box-sizing: border-box;
+  padding: 18rpx 20rpx;
+  border-radius: 10rpx;
+  background: rgba(246, 246, 246, 0.9);
+  color: #333;
+  font-size: 28rpx;
+  line-height: 42rpx;
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14rpx;
+}
+
+.image-cell,
+.image-add {
+  height: 190rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+  background: #f2f4f7;
+  position: relative;
+}
+
+.image-cell image {
+  width: 100%;
+  height: 100%;
+}
+
+.image-remove {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  width: 42rpx;
+  height: 42rpx;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(23, 32, 51, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #98a2b3;
+  font-size: 54rpx;
+}
+
+.tag-input {
+  display: flex;
+  width: 100%;
+  min-height: 72rpx;
+  padding-right: 136rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.tag-input input {
+  flex: 1;
+  height: 72rpx;
+  box-sizing: border-box;
+  padding: 0 18rpx;
+  border-radius: 10rpx;
+  background: #f5f8fb;
+  color: #333;
+  font-size: 28rpx;
+}
+
+.tag-input view {
+  position: absolute;
+  right: -4rpx;
+  top: 0;
+  width: 124rpx;
+  height: 72rpx;
+  border-radius: 10rpx;
+  background: #4a90d9;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+}
+
+.tags {
+  margin-top: 14rpx;
+}
+
+.tag-area {
+  width: 100%;
+  padding: 2rpx 0 4rpx;
+}
+
+.save-button {
+  margin: 20rpx 0 0;
+  height: 90rpx;
+  border-radius: 10rpx;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  font-weight: 600;
+}

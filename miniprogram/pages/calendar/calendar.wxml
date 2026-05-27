@@ -1,0 +1,73 @@
+<lc_header header_title="大事件" header_color="{{globalData.color || '#4a90d9'}}" blur="{{globalData.blur}}" back="{{back}}"></lc_header>
+<l-toast show="{{toastBol}}" title="{{toastTitle}}" duration="{{toastDuration}}" />
+
+<view class="record-page" style="padding-top: {{globalData.customHeight.height + globalData.customHeight.top + 6}}px;">
+  <view class="calendar-fixed">
+    <view class="month-card">
+      <view class="month-head">
+        <view class="month-arrow" bindtap="prevMonth">‹</view>
+        <view class="month-title">{{currentYear}}年{{currentMonth}}月</view>
+        <view class="month-arrow" bindtap="nextMonth">›</view>
+      </view>
+
+      <view class="week-head">
+        <text>一</text><text>二</text><text>三</text><text>四</text><text>五</text><text>六</text><text>日</text>
+      </view>
+
+      <view class="calendar-grid">
+        <view class="calendar-week" wx:for="{{weeks}}" wx:key="index" wx:for-item="week">
+          <view wx:for="{{week}}" wx:key="index" wx:for-item="day"
+            class="calendar-day {{day && day.dateStr === today ? 'is-today' : ''}} {{day && day.dateStr === selectedDate ? 'is-selected' : ''}}"
+            data-date="{{day.dateStr}}"
+            bindtap="selectDate">
+            <block wx:if="{{day}}">
+              <text>{{day.day}}</text>
+              <view class="day-dots" wx:if="{{day.marks.length}}">
+                <view wx:for="{{day.marks}}" wx:key="index" wx:for-item="mark" class="day-dot" style="background: {{importanceColor[mark.importance]}}"></view>
+                <view wx:if="{{day.hasMore}}" class="day-dot more-dot"></view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="day-section">
+      <view>
+        <view class="day-title">{{selectedDate}}</view>
+        <view class="day-sub">这一天留下的重要时刻</view>
+      </view>
+      <view class="day-add" bindtap="toCreate">添加</view>
+    </view>
+
+  </view>
+
+  <scroll-view class="record-scroll" scroll-y>
+    <view wx:if="{{loadingDay}}" class="empty-state">
+      <l-loading show size="mini" type="circle" color="{{globalData.color || '#4a90d9'}}"></l-loading>
+    </view>
+
+    <view wx:if="{{!loadingDay && dayRecords.length === 0}}" class="empty-card">
+      <view class="empty-title">这天还没有记录</view>
+      <view class="empty-text">写下一件小事，或者标记一个重要时刻。</view>
+      <view class="empty-action" style="background: {{globalData.color || '#4a90d9'}}" bindtap="toCreate">写一条</view>
+    </view>
+
+    <view wx:for="{{dayRecords}}" wx:key="_id" wx:for-index="record_index" wx:for-item="record" class="record-card" bindtap="toDetail" data-index="{{record_index}}">
+      <view class="record-line" style="background: {{record.color}}"></view>
+      <view class="record-main">
+        <view class="record-meta">
+          <text>{{record.typeText}}</text>
+          <text>{{record.importance}}级</text>
+        </view>
+        <view class="record-title">{{record.displayTitle}}</view>
+        <view class="record-preview">{{record.preview}}</view>
+        <view class="record-tags" wx:if="{{record.tags.length}}">
+          <text wx:for="{{record.tags}}" wx:key="index">{{item}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- <view class="record-fab" style="background: {{globalData.color || '#4a90d9'}}" bindtap="toCreate">+</view> -->
+</view>
